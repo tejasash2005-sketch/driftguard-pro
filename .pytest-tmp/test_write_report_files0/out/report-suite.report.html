@@ -1,0 +1,23 @@
+<!doctype html><html lang='en'><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'><title>DriftGuard report: Report Suite</title><style>
+:root{color-scheme:light dark;--bg:#f6f7f9;--fg:#15181d;--card:#fff;--muted:#5f6b7a;
+--line:#e1e5ea;--pass:#1a7f4b;--fail:#c62828;--error:#b45309;--inc:#5b6475}
+@media (prefers-color-scheme:dark){:root{--bg:#0f1318;--fg:#e8ebef;--card:#171c23;
+--muted:#97a3b3;--line:#2a323d;--pass:#4cc38a;--fail:#ff6b6b;--error:#f5a524;--inc:#9aa5b8}}
+body{margin:0;background:var(--bg);color:var(--fg);font:15px/1.5 system-ui,sans-serif}
+main{max-width:1000px;margin:0 auto;padding:24px 16px}
+h1{margin:0 0 4px}h2{margin:28px 0 10px;font-size:1.1rem}
+.meta{color:var(--muted);font-size:.9rem}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin:16px 0}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 14px}
+.card b{display:block;font-size:1.5rem}.card span{color:var(--muted);font-size:.8rem}
+.badge{display:inline-block;padding:2px 10px;border-radius:999px;font-weight:600;font-size:.8rem;
+border:1px solid currentColor}
+.pass{color:var(--pass)}.fail{color:var(--fail)}.error{color:var(--error)}
+.inconclusive{color:var(--inc)}
+.wrap{overflow-x:auto}
+table{border-collapse:collapse;width:100%;background:var(--card);border:1px solid var(--line)}
+th,td{padding:8px 10px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top;
+font-size:.9rem}
+th{color:var(--muted);font-weight:600}
+ul{margin:4px 0;padding-left:18px}
+</style></head><body><main><h1>Report Suite</h1><p class='meta'>Run <code>5c9cb2bff1fc</code> &middot; generated 2023-11-14T22:13:20Z &middot; DriftGuard 1.1.2 &middot; suite sha256 <code>eafdd5861d4e</code> &middot; seed 0 &middot; similarity: lexical</p><p><span class='badge fail'>FAIL</span> exit code 1</p><div class='cards'><div class='card'><b>2</b><span>Cases</span></div><div class='card'><b>1</b><span>Passed</span></div><div class='card'><b>1</b><span>Failed</span></div><div class='card'><b>0</b><span>Errors</span></div><div class='card'><b>0</b><span>Inconclusive</span></div><div class='card'><b>50.0%</b><span>Pass rate</span></div><div class='card'><b>50.0%</b><span>Weighted pass rate</span></div></div><h2>Drift summary</h2><div class='wrap'><table><tr><th>Metric</th><th>n</th><th>Mean baseline</th><th>Mean candidate</th><th>Mean diff</th><th>CI</th><th>p-value</th><th>Significant?</th></tr><tr title='weighted mean text similarity to baseline (1.0 = identical); no hypothesis test is applied to similarity'><td>similarity</td><td>2</td><td>n/a</td><td>0.5</td><td>n/a</td><td>[0, 1]</td><td>n/a</td><td>not tested</td></tr><tr title='fewer than 2 pairs: no confidence interval; only 1 pairs (&lt; min_pairs=6): no hypothesis test performed, so no significance claim is made'><td>latency_ms</td><td>1</td><td>10</td><td>11</td><td>1</td><td>n/a</td><td>n/a</td><td>not tested</td></tr><tr title='no cases with data for this metric'><td>total_tokens</td><td>0</td><td>n/a</td><td>n/a</td><td>n/a</td><td>n/a</td><td>n/a</td><td>not tested</td></tr><tr title='no cases with data for this metric'><td>cost_usd</td><td>0</td><td>n/a</td><td>n/a</td><td>n/a</td><td>n/a</td><td>n/a</td><td>not tested</td></tr></table></div><p class='meta'>CIs: percentile bootstrap, fixed seed. Significance is only reported when a paired randomization test was run with enough pairs; p-values are not corrected for multiple metrics.</p><h2>Failure summary</h2><ul><li><code>assertion:non_empty</code>: 1</li><li><code>drift:similarity</code>: 1</li></ul><h2>Test results</h2><div class='wrap'><table><tr><th>ID</th><th>Status</th><th>Weight</th><th>Similarity</th><th>Details</th></tr><tr><td>ok</td><td><span class='badge pass'>PASS</span></td><td>1</td><td>1.000</td><td></td></tr><tr><td>bad</td><td><span class='badge fail'>FAIL</span></td><td>1</td><td>0.000</td><td><ul><li>non_empty: output is empty</li><li>text similarity 0.000 is below the minimum 0.800</li></ul></td></tr></table></div></main></body></html>

@@ -1,0 +1,135 @@
+{
+  "metadata": {
+    "driftguard_version": "1.1.2",
+    "run_id": "4c0162f3abe6",
+    "generated_at": "2023-11-14T22:13:20Z",
+    "suite_name": "s",
+    "suite_version": "1",
+    "suite_description": "",
+    "suite_sha256": "5f1b234cf800bb44f44764d91fffb7520fd6b81f31433af6f8594268958fc3fc",
+    "report_schema_version": 2,
+    "config": {
+      "similarity": "lexical",
+      "seed": 0,
+      "bootstrap_resamples": 2000,
+      "permutation_resamples": 10000,
+      "confidence": 0.95,
+      "alpha": 0.05,
+      "min_pairs": 6
+    },
+    "thresholds": {
+      "min_similarity": 0.8,
+      "max_latency_increase_pct": 50.0,
+      "max_token_increase_pct": 50.0,
+      "max_cost_increase_pct": 50.0,
+      "fail_on_json_structure_change": true,
+      "fail_on_json_value_change": false
+    }
+  },
+  "status": "FAIL",
+  "summary": {
+    "total": 2,
+    "passed": 1,
+    "failed": 1,
+    "errors": 0,
+    "inconclusive": 0,
+    "pass_rate": 0.5,
+    "weighted_pass_rate": 0.5,
+    "failure_reasons": {
+      "assertion:non_empty": 1
+    },
+    "drift": [
+      {
+        "metric": "latency_ms",
+        "n_pairs": 0,
+        "mean_baseline": null,
+        "mean_candidate": null,
+        "mean_diff": null,
+        "ci_low": null,
+        "ci_high": null,
+        "confidence": null,
+        "ci_method": null,
+        "p_value": null,
+        "test": null,
+        "significant": null,
+        "note": "no cases with data for this metric"
+      },
+      {
+        "metric": "total_tokens",
+        "n_pairs": 0,
+        "mean_baseline": null,
+        "mean_candidate": null,
+        "mean_diff": null,
+        "ci_low": null,
+        "ci_high": null,
+        "confidence": null,
+        "ci_method": null,
+        "p_value": null,
+        "test": null,
+        "significant": null,
+        "note": "no cases with data for this metric"
+      },
+      {
+        "metric": "cost_usd",
+        "n_pairs": 0,
+        "mean_baseline": null,
+        "mean_candidate": null,
+        "mean_diff": null,
+        "ci_low": null,
+        "ci_high": null,
+        "confidence": null,
+        "ci_method": null,
+        "p_value": null,
+        "test": null,
+        "significant": null,
+        "note": "no cases with data for this metric"
+      }
+    ]
+  },
+  "results": [
+    {
+      "id": "a",
+      "name": null,
+      "status": "FAIL",
+      "weight": 1.0,
+      "tags": [],
+      "assertions": [
+        {
+          "type": "non_empty",
+          "passed": false,
+          "message": "output is empty"
+        }
+      ],
+      "drift": null,
+      "failure_codes": [
+        "assertion:non_empty"
+      ],
+      "failure_reasons": [
+        "non_empty: output is empty"
+      ],
+      "error": null,
+      "baseline_preview": null,
+      "candidate_preview": ""
+    },
+    {
+      "id": "b",
+      "name": null,
+      "status": "PASS",
+      "weight": 1.0,
+      "tags": [],
+      "assertions": [
+        {
+          "type": "non_empty",
+          "passed": true,
+          "message": "output is non-empty"
+        }
+      ],
+      "drift": null,
+      "failure_codes": [],
+      "failure_reasons": [],
+      "error": null,
+      "baseline_preview": null,
+      "candidate_preview": "fine"
+    }
+  ]
+}

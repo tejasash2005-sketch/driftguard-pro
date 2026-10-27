@@ -1,0 +1,852 @@
+============================= test session starts =============================
+platform win32 -- Python 3.12.7, pytest-9.1.1, pluggy-1.7.0
+rootdir: C:\Users\Shridevi S Madiwalar\Downloads\driftguard-pro-1.1.0 (1)\driftguard-pro
+configfile: pyproject.toml
+testpaths: tests
+plugins: anyio-4.15.1, hypothesis-6.170.12, cov-7.1.0
+collected 227 items
+
+tests\test_api.py ........................                               [ 10%]
+tests\test_assertions.py ..........                                      [ 14%]
+tests\test_cli.py .E
+
+=================================== ERRORS ====================================
+_______________ ERROR at setup of test_run_exit_codes[case0-0] ________________
+
+cls = <class '_pytest.runner.CallInfo'>
+func = <function call_and_report.<locals>.<lambda> at 0x00000297161A7100>
+when = 'setup'
+reraise = (<class '_pytest.outcomes.Exit'>, <class 'KeyboardInterrupt'>)
+
+    @classmethod
+    def from_call(
+        cls,
+        func: Callable[[], TResult],
+        when: Literal["collect", "setup", "call", "teardown"],
+        reraise: type[BaseException] | tuple[type[BaseException], ...] | None = None,
+    ) -> CallInfo[TResult]:
+        """Call func, wrapping the result in a CallInfo.
+    
+        :param func:
+            The function to call. Called without arguments.
+        :type func: Callable[[], _pytest.runner.TResult]
+        :param when:
+            The phase in which the function is called.
+        :param reraise:
+            Exception or exceptions that shall propagate if raised by the
+            function, instead of being wrapped in the CallInfo.
+        """
+        excinfo = None
+        instant = timing.Instant()
+        try:
+>           result: TResult | None = func()
+                                     ^^^^^^
+
+.venv-verify\Lib\site-packages\_pytest\runner.py:361: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+>       lambda: runtest_hook(item=item, **kwds),
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        when=when,
+        reraise=get_reraise_exceptions(item.config),
+    )
+
+.venv-verify\Lib\site-packages\_pytest\runner.py:250: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <HookCaller 'pytest_runtest_setup'>
+kwargs = {'item': <Function test_run_exit_codes[case0-0]>}
+
+    def __call__(self, **kwargs: object) -> Any:
+        """Call the hook.
+    
+        Only accepts keyword arguments, which should match the hook
+        specification.
+    
+        Returns the result(s) of calling all registered plugins, see
+        :ref:`calling`.
+        """
+        assert not self.is_historic(), (
+            "Cannot directly call a historic hook - use call_historic instead."
+        )
+        call_kwargs = self._apply_defaults(kwargs)
+        self._verify_all_args_are_provided(call_kwargs)
+        firstresult = self.spec.opts.get("firstresult", False) if self.spec else False
+        # Copy because plugins may register other plugins during iteration (#438).
+>       return self._hookexec(
+            self.name, self._hookimpls.copy(), call_kwargs, firstresult
+        )
+
+.venv-verify\Lib\site-packages\pluggy\_caller.py:197: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <_pytest.config.PytestPluginManager object at 0x00000297118D9880>
+hook_name = 'pytest_runtest_setup'
+methods = [<HookImpl plugin_name='threadexception', plugin=<module '_pytest.threadexception' from 'C:\\Users\\Shridevi S Madiwal...e=None>>, <HookImpl plugin_name='logging-plugin', plugin=<_pytest.logging.LoggingPlugin object at 0x00000297140435C0>>]
+kwargs = {'item': <Function test_run_exit_codes[case0-0]>}, firstresult = False
+
+    def _hookexec(
+        self,
+        hook_name: str,
+        methods: Sequence[HookImpl],
+        kwargs: Mapping[str, object],
+        firstresult: bool,
+    ) -> object | list[object]:
+        # called from all hookcaller instances.
+        # enable_tracing will set its own wrapping function at self._inner_hookexec
+>       return self._inner_hookexec(hook_name, methods, kwargs, firstresult)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.venv-verify\Lib\site-packages\pluggy\_manager.py:183: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <_pytest.logging.LoggingPlugin object at 0x00000297140435C0>
+item = <Function test_run_exit_codes[case0-0]>
+
+    @hookimpl(wrapper=True)
+    def pytest_runtest_setup(self, item: nodes.Item) -> Generator[None]:
+        self.log_cli_handler.set_when("setup")
+    
+        empty: dict[str, list[logging.LogRecord]] = {}
+        item.stash[caplog_records_key] = empty
+        with self._runtest_for(item, "setup"):
+>           yield
+
+.venv-verify\Lib\site-packages\_pytest\logging.py:858: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <CaptureManager _method='fd' _global_capturing=<MultiCapture out=<FDCapture 1 oldfd=5 _state='suspended' tmpfile=<_io...._io.TextIOWrapper name='nul' mode='r' encoding='utf-8'>> _state='suspended' _in_suspended=False> _capture_fixture=None>
+item = <Function test_run_exit_codes[case0-0]>
+
+    @hookimpl(wrapper=True)
+    def pytest_runtest_setup(self, item: Item) -> Generator[None]:
+        with self.item_capture("setup", item):
+>           return (yield)
+                    ^^^^^
+
+.venv-verify\Lib\site-packages\_pytest\capture.py:895: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+item = <Function test_run_exit_codes[case0-0]>
+
+    def pytest_runtest_setup(item: Item) -> None:
+        _update_current_test_var(item, "setup")
+>       item.session._setupstate.setup(item)
+
+.venv-verify\Lib\site-packages\_pytest\runner.py:170: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <_pytest.runner.SetupState object at 0x0000029710FAC920>
+item = <Function test_run_exit_codes[case0-0]>
+
+    def setup(self, item: Item) -> None:
+        """Setup objects along the collector chain to the item."""
+        needed_collectors = item.listchain()
+    
+        # If a collector fails its setup, fail its entire subtree of items.
+        # The setup is not retried for each item - the same exception is used.
+        for col, (finalizers, exc) in self.stack.items():
+            assert col in needed_collectors, "previous item was not torn down properly"
+            if exc:
+                raise exc[0].with_traceback(exc[1])
+    
+        for col in needed_collectors[len(self.stack) :]:
+            assert col not in self.stack
+            # Push onto the stack.
+            self.stack[col] = ([col.teardown], None)
+            try:
+>               col.setup()
+
+.venv-verify\Lib\site-packages\_pytest\runner.py:536: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <Function test_run_exit_codes[case0-0]>
+
+    def setup(self) -> None:
+>       self._request._fillfixtures()
+
+.venv-verify\Lib\site-packages\_pytest\python.py:1710: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <FixtureRequest for <Function test_run_exit_codes[case0-0]>>
+
+    def _fillfixtures(self) -> None:
+        item = self._pyfuncitem
+        for argname in item.fixturenames:
+            if argname not in item.funcargs:
+>               item.funcargs[argname] = self.getfixturevalue(argname)
+                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.venv-verify\Lib\site-packages\_pytest\fixtures.py:806: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <FixtureRequest for <Function test_run_exit_codes[case0-0]>>
+argname = 'tmp_path'
+
+    def getfixturevalue(self, argname: str) -> Any:
+        """Dynamically run a named fixture function.
+    
+        Declaring fixtures via function argument is recommended where possible.
+        But if you can only decide whether to use another fixture at test
+        setup time, you may use this function to retrieve it inside a fixture
+        or test function body.
+    
+        This method can be used during the test setup phase or the test run
+        phase. Avoid using it during the teardown phase.
+    
+        .. versionchanged:: 9.1
+            Calling ``request.getfixturevalue()`` during teardown to request a
+            fixture that was not already requested
+            :ref:`is deprecated <dynamic-fixture-request-during-teardown>`.
+    
+        :param argname:
+            The fixture name.
+        :raises pytest.FixtureLookupError:
+            If the given fixture could not be found.
+        """
+        # Note that in addition to the use case described in the docstring,
+        # getfixturevalue() is also called by pytest itself during item and fixture
+        # setup to evaluate the fixtures that are requested statically
+        # (using function parameters, autouse, etc).
+    
+>       fixturedef = self._get_active_fixturedef(argname)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.venv-verify\Lib\site-packages\_pytest\fixtures.py:630: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <FixtureRequest for <Function test_run_exit_codes[case0-0]>>
+argname = 'tmp_path'
+
+    def _get_active_fixturedef(self, argname: str) -> FixtureDef[object]:
+        if argname == "request":
+            return RequestFixtureDef(self)
+    
+        # If we already finished computing a fixture by this name in this item,
+        # return it.
+        fixturedef = self._fixture_defs.get(argname)
+        if fixturedef is not None:
+            self._check_scope(fixturedef, fixturedef._scope)
+            return fixturedef
+    
+        # Find the appropriate fixturedef.
+        fixturedefs = self._arg2fixturedefs.get(argname, None)
+        if fixturedefs is None:
+            # We arrive here because of a dynamic call to
+            # getfixturevalue(argname) which was naturally
+            # not known at parsing/collection time.
+            fixturedefs = self._fixturemanager.getfixturedefs(argname, self._pyfuncitem)
+        # No fixtures defined with this name.
+        if fixturedefs is None:
+            raise FixtureLookupError(argname, self)
+        # The are no fixtures with this name applicable for the function.
+        if not fixturedefs:
+            raise FixtureLookupError(argname, self)
+    
+        # A fixture may override another fixture with the same name, e.g. a
+        # fixture in a module can override a fixture in a conftest, a fixture in
+        # a class can override a fixture in the module, and so on.
+        # An overriding fixture can request its own name (possibly indirectly);
+        # in this case it gets the value of the fixture it overrides, one level
+        # up.
+        # Check how many `argname`s deep we are, and take the next one.
+        # `fixturedefs` is sorted from furthest to closest, so use negative
+        # indexing to go in reverse.
+        index = -1
+        for request in self._iter_chain():
+            if request.fixturename == argname:
+                index -= 1
+        # If already consumed all of the available levels, fail.
+        if -index > len(fixturedefs):
+            raise FixtureLookupError(argname, self)
+        fixturedef = fixturedefs[index]
+    
+        # Prepare a SubRequest object for calling the fixture.
+        try:
+            callspec = self._pyfuncitem.callspec
+        except AttributeError:
+            callspec = None
+        if callspec is not None and argname in callspec.params:
+            param = callspec.params[argname]
+            param_index = callspec.indices[argname]
+            # The parametrize invocation scope overrides the fixture's scope.
+            scope = callspec._arg2scope[argname]
+        else:
+            param = NOTSET
+            param_index = 0
+            scope = fixturedef._scope
+            self._check_fixturedef_without_param(fixturedef)
+        # The parametrize invocation scope only controls caching behavior while
+        # allowing wider-scoped fixtures to keep depending on the parametrized
+        # fixture. Scope control is enforced for parametrized fixtures
+        # by recreating the whole fixture tree on parameter change.
+        # Hence `fixturedef._scope`, not `scope`.
+        self._check_scope(fixturedef, fixturedef._scope)
+        subrequest = SubRequest(
+            self, scope, param, param_index, fixturedef, _ispytest=True
+        )
+    
+        if not self.session._setupstate.is_node_active(self.node):
+            # TODO(pytest10.1): Remove the `warn` and `if` and call
+            # _raise_teardown_lookup_error unconditionally.
+            warnings.warn(
+                FIXTURE_GETFIXTUREVALUE_DURING_TEARDOWN.format(argname=argname),
+                stacklevel=3,
+            )
+            if subrequest.node not in self.session._setupstate.stack:
+                self._raise_teardown_lookup_error(argname)
+    
+        # Make sure the fixture value is cached, running it if it isn't
+>       fixturedef.execute(request=subrequest)
+
+.venv-verify\Lib\site-packages\_pytest\fixtures.py:726: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <FixtureDef argname='tmp_path' scope='function' baseid=''>
+request = <SubRequest 'tmp_path' for <Function test_run_exit_codes[case0-0]>>
+
+    def execute(self, request: SubRequest) -> FixtureValue:
+        """Return the value of this fixture, executing it if not cached."""
+        # Ensure that the dependent fixtures requested by this fixture are loaded.
+        # This needs to be done before checking if we have a cached value, since
+        # if a dependent fixture has their cache invalidated, e.g. due to
+        # parametrization, they finalize themselves and fixtures depending on it
+        # (which will likely include this fixture) setting `self.cached_result = None`.
+        # See #4871
+        requested_fixtures_that_should_finalize_us = []
+        for argname in self.argnames:
+            fixturedef = request._get_active_fixturedef(argname)
+            # Saves requested fixtures in a list so we later can add our finalizer
+            # to them, ensuring that if a requested fixture gets torn down we get torn
+            # down first. This is generally handled by SetupState, but still currently
+            # needed when this fixture is not parametrized but depends on a parametrized
+            # fixture.
+            requested_fixtures_that_should_finalize_us.append(fixturedef)
+    
+        # Check for (and return) cached value/exception.
+        if self.cached_result is not None:
+            request_cache_key = self.cache_key(request)
+            cache_key = self.cached_result[1]
+            try:
+                # Attempt to make a normal == check: this might fail for objects
+                # which do not implement the standard comparison (like numpy arrays -- #6497).
+                cache_hit = bool(request_cache_key == cache_key)
+            except (ValueError, RuntimeError):
+                # If the comparison raises, use 'is' as fallback.
+                cache_hit = request_cache_key is cache_key
+    
+            if cache_hit:
+                if self.cached_result[2] is not None:
+                    exc, exc_tb = self.cached_result[2]
+                    raise exc.with_traceback(exc_tb)
+                else:
+                    return self.cached_result[0]
+            # We have a previous but differently parametrized fixture instance
+            # so we need to tear it down before creating a new one.
+            self.finish(request)
+            assert self.cached_result is None
+    
+        # Add finalizer to requested fixtures we saved previously.
+        # We make sure to do this after checking for cached value to avoid
+        # adding our finalizer multiple times. (#12135)
+        finalizer = functools.partial(self.finish, request=request)
+        for parent_fixture in requested_fixtures_that_should_finalize_us:
+            parent_fixture.addfinalizer(finalizer)
+    
+        # Register the pytest_fixture_post_finalizer as the first finalizer,
+        # which is executed last.
+        assert not self._finalizers
+        self.addfinalizer(
+            lambda: request.node.ihook.pytest_fixture_post_finalizer(
+                fixturedef=self, request=request
+            )
+        )
+    
+        ihook = request.node.ihook
+        try:
+            # Setup the fixture, run the code in it, and cache the value
+            # in self.cached_result.
+>           result: FixtureValue = ihook.pytest_fixture_setup(
+                fixturedef=self, request=request
+            )
+
+.venv-verify\Lib\site-packages\_pytest\fixtures.py:1232: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <HookCaller 'pytest_fixture_setup'>
+kwargs = {'fixturedef': <FixtureDef argname='tmp_path' scope='function' baseid=''>, 'request': <SubRequest 'tmp_path' for <Function test_run_exit_codes[case0-0]>>}
+
+    def __call__(self, **kwargs: object) -> Any:
+        """Call the hook.
+    
+        Only accepts keyword arguments, which should match the hook
+        specification.
+    
+        Returns the result(s) of calling all registered plugins, see
+        :ref:`calling`.
+        """
+        assert not self.is_historic(), (
+            "Cannot directly call a historic hook - use call_historic instead."
+        )
+        call_kwargs = self._apply_defaults(kwargs)
+        self._verify_all_args_are_provided(call_kwargs)
+        firstresult = self.spec.opts.get("firstresult", False) if self.spec else False
+        # Copy because plugins may register other plugins during iteration (#438).
+>       return self._hookexec(
+            self.name, self._hookimpls.copy(), call_kwargs, firstresult
+        )
+
+.venv-verify\Lib\site-packages\pluggy\_caller.py:197: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <_pytest.config.PytestPluginManager object at 0x00000297118D9880>
+hook_name = 'pytest_fixture_setup'
+methods = [<HookImpl plugin_name='fixtures', plugin=<module '_pytest.fixtures' from 'C:\\Users\\Shridevi S Madiwalar\\Downloads\...lar\\Downloads\\driftguard-pro-1.1.0 (1)\\driftguard-pro\\.venv-verify\\Lib\\site-packages\\anyio\\pytest_plugin.py'>>]
+kwargs = {'fixturedef': <FixtureDef argname='tmp_path' scope='function' baseid=''>, 'request': <SubRequest 'tmp_path' for <Function test_run_exit_codes[case0-0]>>}
+firstresult = True
+
+    def _hookexec(
+        self,
+        hook_name: str,
+        methods: Sequence[HookImpl],
+        kwargs: Mapping[str, object],
+        firstresult: bool,
+    ) -> object | list[object]:
+        # called from all hookcaller instances.
+        # enable_tracing will set its own wrapping function at self._inner_hookexec
+>       return self._inner_hookexec(hook_name, methods, kwargs, firstresult)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.venv-verify\Lib\site-packages\pluggy\_manager.py:183: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+hook_impl = <HookImpl plugin_name='anyio', plugin=<module 'anyio.pytest_plugin' from 'C:\\Users\\Shridevi S Madiwalar\\Downloads\\driftguard-pro-1.1.0 (1)\\driftguard-pro\\.venv-verify\\Lib\\site-packages\\anyio\\pytest_plugin.py'>>
+hook_name = 'pytest_fixture_setup'
+args = [<FixtureDef argname='tmp_path' scope='function' baseid=''>, <SubRequest 'tmp_path' for <Function test_run_exit_codes[case0-0]>>]
+kwargs = None
+
+    def run_old_style_hookwrapper(
+        hook_impl: HookImpl,
+        hook_name: str,
+        args: Sequence[object],
+        kwargs: Mapping[str, object] | None,
+    ) -> Teardown:
+        """
+        backward compatibility wrapper to run a old style hookwrapper as a wrapper
+        """
+        if kwargs is None:
+            res = hook_impl.function(*args)
+        else:
+            res = hook_impl.function(*args, **kwargs)
+        if TYPE_CHECKING:
+            teardown = cast(Teardown, res)
+        else:
+            teardown = res
+        try:
+            next(teardown)
+        except StopIteration:
+            _raise_wrapfail(teardown, "did not yield")
+        try:
+            res = yield
+            result = Result(res, None)
+        except BaseException as exc:
+            result = Result(None, exc)
+        try:
+            teardown.send(result)
+        except StopIteration:
+            pass
+        except BaseException as e:
+            _warn_teardown_exception(hook_name, hook_impl, e)
+            raise
+        else:
+            _raise_wrapfail(teardown, "has second yield")
+        finally:
+            teardown.close()
+>       return result.get_result()
+               ^^^^^^^^^^^^^^^^^^^
+
+.venv-verify\Lib\site-packages\pluggy\_execution.py:64: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+hook_impl = <HookImpl plugin_name='anyio', plugin=<module 'anyio.pytest_plugin' from 'C:\\Users\\Shridevi S Madiwalar\\Downloads\\driftguard-pro-1.1.0 (1)\\driftguard-pro\\.venv-verify\\Lib\\site-packages\\anyio\\pytest_plugin.py'>>
+hook_name = 'pytest_fixture_setup'
+args = [<FixtureDef argname='tmp_path' scope='function' baseid=''>, <SubRequest 'tmp_path' for <Function test_run_exit_codes[case0-0]>>]
+kwargs = None
+
+    def run_old_style_hookwrapper(
+        hook_impl: HookImpl,
+        hook_name: str,
+        args: Sequence[object],
+        kwargs: Mapping[str, object] | None,
+    ) -> Teardown:
+        """
+        backward compatibility wrapper to run a old style hookwrapper as a wrapper
+        """
+        if kwargs is None:
+            res = hook_impl.function(*args)
+        else:
+            res = hook_impl.function(*args, **kwargs)
+        if TYPE_CHECKING:
+            teardown = cast(Teardown, res)
+        else:
+            teardown = res
+        try:
+            next(teardown)
+        except StopIteration:
+            _raise_wrapfail(teardown, "did not yield")
+        try:
+>           res = yield
+                  ^^^^^
+
+.venv-verify\Lib\site-packages\pluggy\_execution.py:49: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+fixturedef = <FixtureDef argname='tmp_path' scope='function' baseid=''>
+request = <SubRequest 'tmp_path' for <Function test_run_exit_codes[case0-0]>>
+
+    @pytest.hookimpl(wrapper=True)
+    def pytest_fixture_setup(
+        fixturedef: FixtureDef[object], request: SubRequest
+    ) -> Generator[None, object, object]:
+        try:
+>           return (yield)
+                    ^^^^^
+
+.venv-verify\Lib\site-packages\_pytest\setuponly.py:36: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+fixturedef = <FixtureDef argname='tmp_path' scope='function' baseid=''>
+request = <SubRequest 'tmp_path' for <Function test_run_exit_codes[case0-0]>>
+
+    def pytest_fixture_setup(
+        fixturedef: FixtureDef[FixtureValue], request: SubRequest
+    ) -> FixtureValue:
+        """Execution of fixture setup."""
+        kwargs = {}
+        for argname in fixturedef.argnames:
+            kwargs[argname] = request.getfixturevalue(argname)
+    
+        fixturefunc = resolve_fixture_function(fixturedef, request)
+        my_cache_key = fixturedef.cache_key(request)
+    
+        if inspect.isasyncgenfunction(fixturefunc) or inspect.iscoroutinefunction(
+            fixturefunc
+        ):
+            auto_str = " with autouse=True" if fixturedef._autouse else ""
+            fail(
+                f"{request.node.name!r} requested an async fixture {request.fixturename!r}{auto_str}, "
+                "with no plugin or hook that handled it. This is an error, as pytest does not natively support it.\n"
+                "See: https://docs.pytest.org/en/stable/deprecations.html#sync-test-depending-on-async-fixture",
+                pytrace=False,
+            )
+    
+        try:
+>           result = call_fixture_func(fixturefunc, request, kwargs)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.venv-verify\Lib\site-packages\_pytest\fixtures.py:1328: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+fixturefunc = <function tmp_path at 0x00000297119971A0>
+request = <SubRequest 'tmp_path' for <Function test_run_exit_codes[case0-0]>>
+kwargs = {'request': <SubRequest 'tmp_path' for <Function test_run_exit_codes[case0-0]>>, 'tmp_path_factory': TempPathFactory(_...uggy._tracing.TagTracerSub object at 0x0000029713F36D50>, _basetemp=None, _retention_count=3, _retention_policy='all')}
+
+    def call_fixture_func(
+        fixturefunc: _FixtureFunc[FixtureValue], request: FixtureRequest, kwargs
+    ) -> FixtureValue:
+        if inspect.isgeneratorfunction(fixturefunc):
+            fixturefunc = cast(Callable[..., Generator[FixtureValue]], fixturefunc)
+            generator = fixturefunc(**kwargs)
+            try:
+>               fixture_result = next(generator)
+                                 ^^^^^^^^^^^^^^^
+
+.venv-verify\Lib\site-packages\_pytest\fixtures.py:998: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+request = <SubRequest 'tmp_path' for <Function test_run_exit_codes[case0-0]>>
+tmp_path_factory = TempPathFactory(_given_basetemp=None, _trace=<pluggy._tracing.TagTracerSub object at 0x0000029713F36D50>, _basetemp=None, _retention_count=3, _retention_policy='all')
+
+    @fixture
+    def tmp_path(
+        request: FixtureRequest, tmp_path_factory: TempPathFactory
+    ) -> Generator[Path]:
+        """Return a temporary directory (as :class:`pathlib.Path` object)
+        which is unique to each test function invocation.
+        The temporary directory is created as a subdirectory
+        of the base temporary directory, with configurable retention,
+        as discussed in :ref:`temporary directory location and retention`.
+        """
+>       path = _mk_tmp(request, tmp_path_factory)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.venv-verify\Lib\site-packages\_pytest\tmpdir.py:300: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+request = <SubRequest 'tmp_path' for <Function test_run_exit_codes[case0-0]>>
+factory = TempPathFactory(_given_basetemp=None, _trace=<pluggy._tracing.TagTracerSub object at 0x0000029713F36D50>, _basetemp=None, _retention_count=3, _retention_policy='all')
+
+    def _mk_tmp(request: FixtureRequest, factory: TempPathFactory) -> Path:
+        name = request.node.name
+        name = re.sub(r"[\W]", "_", name)
+        MAXVAL = 30
+        name = name[:MAXVAL]
+>       return factory.mktemp(name, numbered=True)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.venv-verify\Lib\site-packages\_pytest\tmpdir.py:287: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = TempPathFactory(_given_basetemp=None, _trace=<pluggy._tracing.TagTracerSub object at 0x0000029713F36D50>, _basetemp=None, _retention_count=3, _retention_policy='all')
+basename = 'test_run_exit_codes_case0_0_', numbered = True
+
+    def mktemp(self, basename: str, numbered: bool = True) -> Path:
+        """Create a new temporary directory managed by the factory.
+    
+        :param basename:
+            Directory base name, must be a relative path.
+    
+        :param numbered:
+            If ``True``, ensure the directory is unique by adding a numbered
+            suffix greater than any existing one: ``basename="foo-"`` and ``numbered=True``
+            means that this function will create directories named ``"foo-0"``,
+            ``"foo-1"``, ``"foo-2"`` and so on.
+    
+        :returns:
+            The path to the new directory.
+        """
+>       basename = self._ensure_relative_to_basetemp(basename)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.venv-verify\Lib\site-packages\_pytest\tmpdir.py:136: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = TempPathFactory(_given_basetemp=None, _trace=<pluggy._tracing.TagTracerSub object at 0x0000029713F36D50>, _basetemp=None, _retention_count=3, _retention_policy='all')
+basename = 'test_run_exit_codes_case0_0_'
+
+    def _ensure_relative_to_basetemp(self, basename: str) -> str:
+        basename = os.path.normpath(basename)
+>       if (self.getbasetemp() / basename).resolve().parent != self.getbasetemp():
+            ^^^^^^^^^^^^^^^^^^
+
+.venv-verify\Lib\site-packages\_pytest\tmpdir.py:117: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = TempPathFactory(_given_basetemp=None, _trace=<pluggy._tracing.TagTracerSub object at 0x0000029713F36D50>, _basetemp=None, _retention_count=3, _retention_policy='all')
+
+    def getbasetemp(self) -> Path:
+        """Return the base temporary directory, creating it if needed.
+    
+        :returns:
+            The base temporary directory.
+        """
+        if self._basetemp is not None:
+            return self._basetemp
+    
+        if self._given_basetemp is not None:
+            basetemp = self._given_basetemp
+            if basetemp.exists():
+                rm_rf(basetemp)
+            basetemp.mkdir(mode=0o700)
+            basetemp = basetemp.resolve()
+        else:
+            from_env = os.environ.get("PYTEST_DEBUG_TEMPROOT")
+            temproot = Path(from_env or tempfile.gettempdir()).resolve()
+            user = get_user() or "unknown"
+            # use a sub-directory in the temproot to speed-up
+            # make_numbered_dir() call
+            rootdir = temproot.joinpath(f"pytest-of-{user}")
+            try:
+                rootdir.mkdir(mode=0o700, exist_ok=True)
+            except OSError:
+                # getuser() likely returned illegal characters for the platform, use unknown back off mechanism
+                rootdir = temproot.joinpath("pytest-of-unknown")
+                rootdir.mkdir(mode=0o700, exist_ok=True)
+            # Because we use exist_ok=True with a predictable name, make sure
+            # we are the owners, to prevent any funny business (on unix, where
+            # temproot is usually shared).
+            # Also, to keep things private, fixup any world-readable temp
+            # rootdir's permissions. Historically 0o755 was used, so we can't
+            # just error out on this, at least for a while.
+            # Don't follow symlinks, otherwise we're open to symlink-swapping
+            # TOCTOU vulnerability.
+            # This check makes us vulnerable to a DoS - a user can `mkdir
+            # /tmp/pytest-of-otheruser` and then `otheruser` will fail this
+            # check. For now we don't consider it a real problem. otheruser can
+            # change their TMPDIR or --basetemp, and maybe give the prankster a
+            # good scolding.
+            uid = get_user_id()
+            if uid is not None:
+                stat_follow_symlinks = (
+                    False if os.stat in os.supports_follow_symlinks else True
+                )
+                rootdir_stat = rootdir.stat(follow_symlinks=stat_follow_symlinks)
+                if stat.S_ISLNK(rootdir_stat.st_mode):
+                    raise OSError(
+                        f"The temporary directory {rootdir} is a symbolic link. "
+                        "Fix this and try again."
+                    )
+                if rootdir_stat.st_uid != uid:
+                    raise OSError(
+                        f"The temporary directory {rootdir} is not owned by the current user. "
+                        "Fix this and try again."
+                    )
+                if (rootdir_stat.st_mode & 0o077) != 0:
+                    chmod_follow_symlinks = (
+                        False if os.chmod in os.supports_follow_symlinks else True
+                    )
+                    rootdir.chmod(
+                        rootdir_stat.st_mode & ~0o077,
+                        follow_symlinks=chmod_follow_symlinks,
+                    )
+            keep = self._retention_count
+            if self._retention_policy == "none":
+                keep = 0
+>           basetemp = make_numbered_dir_with_cleanup(
+                prefix="pytest-",
+                root=rootdir,
+                keep=keep,
+                lock_timeout=LOCK_TIMEOUT,
+                mode=0o700,
+                register=self._exit_stack.callback,
+            )
+
+.venv-verify\Lib\site-packages\_pytest\tmpdir.py:213: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+root = WindowsPath('C:/Users/Shridevi S Madiwalar/AppData/Local/Temp/pytest-of-Shridevi S Madiwalar')
+prefix = 'pytest-', mode = 448, keep = 3, lock_timeout = 259200
+register = <bound method _BaseExitStack.callback of <contextlib.ExitStack object at 0x0000029713F365A0>>
+
+    def make_numbered_dir_with_cleanup(
+        *,
+        root: Path,
+        prefix: str,
+        mode: int,
+        keep: int,
+        lock_timeout: float,
+        register: Any,
+    ) -> Path:
+        """Create a numbered dir and register its cleanup.
+    
+        Similar to make_numbered_dir, but also maintains a lock file indicating that
+        the directory is currently in use, and registers the cleanup of the lock and
+        of stale numbered directories.
+    
+        :param keep:
+            The number of sessions to retain the directory.
+        :param lock_timeout:
+            In case of a crash, the lock remains "stuck". The timeout is a time
+            limit after which the lock is considered stale and can be removed.
+        :param register:
+            Called as register(cleanup_func, params...). Should schedule to call
+            passed cleanup functions on session finish.
+        """
+        e = None
+        for i in range(10):
+            try:
+                p = make_numbered_dir(root, prefix, mode)
+                # Only lock the current dir when keep is not 0
+                if keep != 0:
+                    lock_path = create_cleanup_lock(p)
+                    register_cleanup_lock_removal(lock_path, register)
+            except Exception as exc:
+                e = exc
+            else:
+                consider_lock_dead_if_created_before = p.stat().st_mtime - lock_timeout
+                # Register a cleanup for program exit
+                register(
+                    cleanup_numbered_dir,
+                    root,
+                    prefix,
+                    keep,
+                    consider_lock_dead_if_created_before,
+                )
+                return p
+        assert e is not None
+>       raise e
+
+.venv-verify\Lib\site-packages\_pytest\pathlib.py:420: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+root = WindowsPath('C:/Users/Shridevi S Madiwalar/AppData/Local/Temp/pytest-of-Shridevi S Madiwalar')
+prefix = 'pytest-', mode = 448, keep = 3, lock_timeout = 259200
+register = <bound method _BaseExitStack.callback of <contextlib.ExitStack object at 0x0000029713F365A0>>
+
+    def make_numbered_dir_with_cleanup(
+        *,
+        root: Path,
+        prefix: str,
+        mode: int,
+        keep: int,
+        lock_timeout: float,
+        register: Any,
+    ) -> Path:
+        """Create a numbered dir and register its cleanup.
+    
+        Similar to make_numbered_dir, but also maintains a lock file indicating that
+        the directory is currently in use, and registers the cleanup of the lock and
+        of stale numbered directories.
+    
+        :param keep:
+            The number of sessions to retain the directory.
+        :param lock_timeout:
+            In case of a crash, the lock remains "stuck". The timeout is a time
+            limit after which the lock is considered stale and can be removed.
+        :param register:
+            Called as register(cleanup_func, params...). Should schedule to call
+            passed cleanup functions on session finish.
+        """
+        e = None
+        for i in range(10):
+            try:
+>               p = make_numbered_dir(root, prefix, mode)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.venv-verify\Lib\site-packages\_pytest\pathlib.py:401: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+root = WindowsPath('C:/Users/Shridevi S Madiwalar/AppData/Local/Temp/pytest-of-Shridevi S Madiwalar')
+prefix = 'pytest-', mode = 448
+
+    def make_numbered_dir(root: Path, prefix: str, mode: int = 0o700) -> Path:
+        """Create a directory with an increased number as suffix for the given prefix."""
+        for i in range(10):
+            # try up to 10 times to create the directory
+>           max_existing = max(map(parse_num, find_suffixes(root, prefix)), default=-1)
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.venv-verify\Lib\site-packages\_pytest\pathlib.py:228: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+iter = <generator object find_prefixed at 0x00000297160B1FC0>
+prefix = 'pytest-'
+
+    def extract_suffixes(iter: Iterable[os.DirEntry[str]], prefix: str) -> Iterator[str]:
+        """Return the parts of the paths following the prefix.
+    
+        :param iter: Iterator over path names.
+        :param prefix: Expected prefix of the path names.
+        """
+        p_len = len(prefix)
+>       for entry in iter:
+                     ^^^^
+
+.venv-verify\Lib\site-packages\_pytest\pathlib.py:187: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+root = WindowsPath('C:/Users/Shridevi S Madiwalar/AppData/Local/Temp/pytest-of-Shridevi S Madiwalar')
+prefix = 'pytest-'
+
+    def find_prefixed(root: Path, prefix: str) -> Iterator[os.DirEntry[str]]:
+        """Find all elements in root that begin with the prefix, case-insensitive."""
+        l_prefix = prefix.lower()
+>       for x in os.scandir(root):
+                 ^^^^^^^^^^^^^^^^
+E       PermissionError: [WinError 5] Access is denied: 'C:\\Users\\Shridevi S Madiwalar\\AppData\\Local\\Temp\\pytest-of-Shridevi S Madiwalar'
+
+.venv-verify\Lib\site-packages\_pytest\pathlib.py:175: PermissionError
+=========================== short test summary info ===========================
+ERROR tests/test_cli.py::test_run_exit_codes[case0-0] - PermissionError: [Win...
+!!!!!!!!!!!!!!!!!!!!!!!!!! stopping after 1 failures !!!!!!!!!!!!!!!!!!!!!!!!!!
+========================= 35 passed, 1 error in 5.67s =========================

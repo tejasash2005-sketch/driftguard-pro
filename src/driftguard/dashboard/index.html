@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DriftGuard Pro</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand"><span class="logo" aria-hidden="true"></span><h1>DriftGuard <span>Pro</span></h1></div>
+    <div class="controls">
+      <label class="sr-only" for="run-select">Select run</label>
+      <select id="run-select"></select>
+      <button id="btn-demo" type="button">Run demo</button>
+      <button id="btn-regression" type="button">Run regression example</button>
+      <label class="btn" for="file-input">Upload suite</label>
+      <input id="file-input" type="file" accept="application/json,.json" class="sr-only">
+    </div>
+  </header>
+  <form id="token-form" class="token-form hidden" autocomplete="off">
+    <label for="token-input">This server requires an API token</label>
+    <input id="token-input" type="password" minlength="16" required placeholder="Bearer token">
+    <button type="submit">Unlock</button>
+  </form>
+  <main>
+    <div id="notice" class="notice hidden" role="status" aria-live="polite"></div>
+    <section id="overview" aria-label="Run overview"></section>
+    <section class="panel" aria-labelledby="trend-h">
+      <h2 id="trend-h">Pass-rate trend</h2>
+      <div id="trend" class="trend"></div>
+    </section>
+    <section class="panel" aria-labelledby="diff-h">
+      <div class="panel-head">
+        <h2 id="diff-h">Compare with an earlier run</h2>
+        <div class="controls">
+          <label class="sr-only" for="compare-select">Earlier run</label>
+          <select id="compare-select"></select>
+        </div>
+      </div>
+      <div id="diff-out" class="muted">Select an earlier run to see regressions, fixes and added or removed cases.</div>
+    </section>
+    <section class="panel" aria-labelledby="drift-h">
+      <h2 id="drift-h">Drift summary</h2>
+      <div class="table-wrap"><table id="drift-table"></table></div>
+      <p class="muted small">Confidence intervals are percentile bootstrap with a fixed seed. "Significant" appears only when a paired randomization test ran with enough pairs; p-values are not corrected for multiple metrics.</p>
+    </section>
+    <section class="panel" aria-labelledby="reasons-h">
+      <h2 id="reasons-h">Failure reasons</h2>
+      <div id="reasons" class="chips"></div>
+    </section>
+    <section class="panel" aria-labelledby="cases-h">
+      <div class="panel-head">
+        <h2 id="cases-h">Test cases</h2>
+        <div class="controls">
+          <label class="sr-only" for="filter">Filter</label>
+          <select id="filter">
+            <option value="all">All cases</option>
+            <option value="failed" selected>Failed / not passing</option>
+            <option value="PASS">Passed</option>
+          </select>
+          <button type="button" data-format="json">JSON</button>
+          <button type="button" data-format="html">HTML</button>
+          <button type="button" data-format="junit">JUnit</button>
+          <button type="button" data-format="md">Markdown</button>
+          <button id="btn-delete" type="button" class="danger">Delete run</button>
+        </div>
+      </div>
+      <div class="table-wrap"><table id="cases-table"></table></div>
+    </section>
+  </main>
+  <script src="/static/app.js" defer></script>
+</body>
+</html>

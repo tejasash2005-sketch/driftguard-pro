@@ -1,0 +1,556 @@
+{
+  "metadata": {
+    "driftguard_version": "1.0.0",
+    "run_id": "728855c909d5",
+    "generated_at": "2023-11-14T22:13:20Z",
+    "suite_name": "demo-support-bot",
+    "suite_version": "1",
+    "suite_description": "All cases pass: small, in-threshold drift only.",
+    "suite_sha256": "f129066032481585f44e71545e2071fcaa5febd3ec23560f26615e9657ac2c18",
+    "config": {
+      "similarity": "lexical",
+      "seed": 0,
+      "bootstrap_resamples": 2000,
+      "permutation_resamples": 10000,
+      "confidence": 0.95,
+      "alpha": 0.05,
+      "min_pairs": 6
+    },
+    "thresholds": {
+      "min_similarity": 0.7,
+      "max_latency_increase_pct": 50.0,
+      "max_token_increase_pct": 50.0,
+      "max_cost_increase_pct": 50.0,
+      "fail_on_json_structure_change": true,
+      "fail_on_json_value_change": false
+    }
+  },
+  "status": "PASS",
+  "summary": {
+    "total": 8,
+    "passed": 8,
+    "failed": 0,
+    "errors": 0,
+    "inconclusive": 0,
+    "pass_rate": 1.0,
+    "weighted_pass_rate": 1.0,
+    "failure_reasons": {},
+    "drift": [
+      {
+        "metric": "similarity",
+        "n_pairs": 8,
+        "mean_baseline": null,
+        "mean_candidate": 0.9393644209820833,
+        "mean_diff": null,
+        "ci_low": 0.87893270128552,
+        "ci_high": 1.0,
+        "confidence": 0.95,
+        "ci_method": "percentile bootstrap (resampling cases with replacement)",
+        "p_value": null,
+        "test": null,
+        "significant": null,
+        "note": "weighted mean text similarity to baseline (1.0 = identical); no hypothesis test is applied to similarity"
+      },
+      {
+        "metric": "latency_ms",
+        "n_pairs": 8,
+        "mean_baseline": 395.0,
+        "mean_candidate": 413.3333333333333,
+        "mean_diff": 18.333333333333332,
+        "ci_low": 14.444444444444445,
+        "ci_high": 23.47826086956522,
+        "confidence": 0.95,
+        "ci_method": "percentile bootstrap (resampling cases with replacement)",
+        "p_value": 0.007812,
+        "test": "paired sign-flip randomization test on the weighted mean difference (two-sided); exact",
+        "significant": true,
+        "note": "alpha=0.05; p-values are not corrected for multiple metrics"
+      },
+      {
+        "metric": "total_tokens",
+        "n_pairs": 8,
+        "mean_baseline": 30.75,
+        "mean_candidate": 30.791666666666668,
+        "mean_diff": 0.041666666666666664,
+        "ci_low": -0.375,
+        "ci_high": 0.46153846153846156,
+        "confidence": 0.95,
+        "ci_method": "percentile bootstrap (resampling cases with replacement)",
+        "p_value": 1.0,
+        "test": "paired sign-flip randomization test on the weighted mean difference (two-sided); exact",
+        "significant": false,
+        "note": "alpha=0.05; p-values are not corrected for multiple metrics"
+      },
+      {
+        "metric": "cost_usd",
+        "n_pairs": 8,
+        "mean_baseline": 6.15e-05,
+        "mean_candidate": 6.158333333333333e-05,
+        "mean_diff": 8.33333333333314e-08,
+        "ci_low": -7.50000000000003e-07,
+        "ci_high": 9.230769230769205e-07,
+        "confidence": 0.95,
+        "ci_method": "percentile bootstrap (resampling cases with replacement)",
+        "p_value": 1.0,
+        "test": "paired sign-flip randomization test on the weighted mean difference (two-sided); exact",
+        "significant": false,
+        "note": "alpha=0.05; p-values are not corrected for multiple metrics"
+      }
+    ]
+  },
+  "results": [
+    {
+      "id": "greeting",
+      "name": null,
+      "status": "PASS",
+      "weight": 1.0,
+      "tags": [],
+      "assertions": [
+        {
+          "type": "non_empty",
+          "passed": true,
+          "message": "output is non-empty"
+        }
+      ],
+      "drift": {
+        "similarity": 1.0,
+        "similarity_method": "lexical",
+        "text_changed": false,
+        "json_diff": null,
+        "metrics": [
+          {
+            "name": "latency_ms",
+            "baseline": 410.0,
+            "candidate": 430.0,
+            "change": 20.0,
+            "pct_change": 4.878049,
+            "threshold_pct": 50.0,
+            "exceeded": false
+          },
+          {
+            "name": "total_tokens",
+            "baseline": 27.0,
+            "candidate": 27.0,
+            "change": 0.0,
+            "pct_change": 0.0,
+            "threshold_pct": 50.0,
+            "exceeded": false
+          },
+          {
+            "name": "cost_usd",
+            "baseline": 5.4e-05,
+            "candidate": 5.4e-05,
+            "change": 0.0,
+            "pct_change": 0.0,
+            "threshold_pct": 50.0,
+            "exceeded": false
+          }
+        ]
+      },
+      "failure_codes": [],
+      "failure_reasons": [],
+      "error": null,
+      "baseline_preview": "Hello! How can I help you today?",
+      "candidate_preview": "Hello! How can I help you today?"
+    },
+    {
+      "id": "refund_policy",
+      "name": null,
+      "status": "PASS",
+      "weight": 2.0,
+      "tags": [],
+      "assertions": [
+        {
+          "type": "non_empty",
+          "passed": true,
+          "message": "output is non-empty"
+        }
+      ],
+      "drift": {
+        "similarity": 0.803571428571,
+        "similarity_method": "lexical",
+        "text_changed": true,
+        "json_diff": null,
+        "metrics": [
+          {
+            "name": "latency_ms",
+            "baseline": 620.0,
+            "candidate": 650.0,
+            "change": 30.0,
+            "pct_change": 4.83871,
+            "threshold_pct": 50.0,
+            "exceeded": false
+          },
+          {
+            "name": "total_tokens",
+            "baseline": 41.0,
+            "candidate": 42.0,
+            "change": 1.0,
+            "pct_change": 2.439024,
+            "threshold_pct": 50.0,
+            "exceeded": false
+          },
+          {
+            "name": "cost_usd",
+            "baseline": 8.2e-05,
+            "candidate": 8.4e-05,
+            "change": 2e-06,
+            "pct_change": 2.439024,
+            "threshold_pct": 50.0,
+            "exceeded": false
+          }
+        ]
+      },
+      "failure_codes": [],
+      "failure_reasons": [],
+      "error": null,
+      "baseline_preview": "Refunds are available within 30 days of purchase with a valid receipt.",
+      "candidate_preview": "Refunds are available within 30 days of purchase if you have a valid receipt."
+    },
+    {
+      "id": "order_status",
+      "name": null,
+      "status": "PASS",
+      "weight": 3.0,
+      "tags": [],
+      "assertions": [
+        {
+          "type": "json_keys",
+          "passed": true,
+          "message": "all required keys present"
+        },
+        {
+          "type": "json_schema",
+          "passed": true,
+          "message": "output matches schema"
+        }
+      ],
+      "drift": {
+        "similarity": 1.0,
+        "similarity_method": "lexical",
+        "text_changed": false,
+        "json_diff": {
+          "baseline_valid": true,
+          "candidate_valid": true,
+          "added": [],
+          "removed": [],
+          "type_changed": [],
+          "value_changed": []
+        },
+        "metrics": [
+          {
+            "name": "latency_ms",
+            "baseline": 380.0,
+            "candidate": 395.0,
+            "change": 15.0,
+            "pct_change": 3.947368,
+            "threshold_pct": 50.0,
+            "exceeded": false
+          },
+          {
+            "name": "total_tokens",
+            "baseline": 34.0,
+            "candidate": 34.0,
+            "change": 0.0,
+            "pct_change": 0.0,
+            "threshold_pct": 50.0,
+            "exceeded": false
+          },
+          {
+            "name": "cost_usd",
+            "baseline": 6.8e-05,
+            "candidate": 6.8e-05,
+            "change": 0.0,
+            "pct_change": 0.0,
+            "threshold_pct": 50.0,
+            "exceeded": false
+          }
+        ]
+      },
+      "failure_codes": [],
+      "failure_reasons": [],
+      "error": null,
+      "baseline_preview": "{\"status\": \"shipped\", \"eta_days\": 3}",
+      "candidate_preview": "{\"status\": \"shipped\", \"eta_days\": 3}"
+    },
+    {
+      "id": "capital_france",
+      "name": null,
+      "status": "PASS",
+      "weight": 1.0,
+      "tags": [],
+      "assertions": [
+        {
+          "type": "exact_match",
+          "passed": true,
+          "message": "output matches expected"
+        }
+      ],
+      "drift": {
+        "similarity": 1.0,
+        "similarity_method": "lexical",
+        "text_changed": false,
+        "json_diff": null,
+        "metrics": [
+          {
+            "name": "latency_ms",
+            "baseline": 150.0,
+            "candidate": 160.0,
+            "change": 10.0,
+            "pct_change": 6.666667,
+            "threshold_pct": 50.0,
+            "exceeded": false
+          },
+          {
+            "name": "total_tokens",
+            "baseline": 15.0,
+            "candidate": 15.0,
+            "change": 0.0,
+            "pct_change": 0.0,
+            "threshold_pct": 50.0,
+            "exceeded": false
+          },
+          {
+            "name": "cost_usd",
+            "baseline": 3e-05,
+            "candidate": 3e-05,
+            "change": 0.0,
+            "pct_change": 0.0,
+            "threshold_pct": 50.0,
+            "exceeded": false
+          }
+        ]
+      },
+      "failure_codes": [],
+      "failure_reasons": [],
+      "error": null,
+      "baseline_preview": "Paris",
+      "candidate_preview": "Paris"
+    },
+    {
+      "id": "translate",
+      "name": null,
+      "status": "PASS",
+      "weight": 1.0,
+      "tags": [],
+      "assertions": [
+        {
+          "type": "non_empty",
+          "passed": true,
+          "message": "output is non-empty"
+        }
+      ],
+      "drift": {
+        "similarity": 1.0,
+        "similarity_method": "lexical",
+        "text_changed": false,
+        "json_diff": null,
+        "metrics": [
+          {
+            "name": "latency_ms",
+            "baseline": 220.0,
+            "candidate": 240.0,
+            "change": 20.0,
+            "pct_change": 9.090909,
+            "threshold_pct": 50.0,
+            "exceeded": false
+          },
+          {
+            "name": "total_tokens",
+            "baseline": 15.0,
+            "candidate": 15.0,
+            "change": 0.0,
+            "pct_change": 0.0,
+            "threshold_pct": 50.0,
+            "exceeded": false
+          },
+          {
+            "name": "cost_usd",
+            "baseline": 3e-05,
+            "candidate": 3e-05,
+            "change": 0.0,
+            "pct_change": 0.0,
+            "threshold_pct": 50.0,
+            "exceeded": false
+          }
+        ]
+      },
+      "failure_codes": [],
+      "failure_reasons": [],
+      "error": null,
+      "baseline_preview": "Buenos días",
+      "candidate_preview": "Buenos días"
+    },
+    {
+      "id": "summary",
+      "name": null,
+      "status": "PASS",
+      "weight": 1.5,
+      "tags": [],
+      "assertions": [
+        {
+          "type": "non_empty",
+          "passed": true,
+          "message": "output is non-empty"
+        }
+      ],
+      "drift": {
+        "similarity": 0.89010989011,
+        "similarity_method": "lexical",
+        "text_changed": true,
+        "json_diff": null,
+        "metrics": [
+          {
+            "name": "latency_ms",
+            "baseline": 500.0,
+            "candidate": 520.0,
+            "change": 20.0,
+            "pct_change": 4.0,
+            "threshold_pct": 50.0,
+            "exceeded": false
+          },
+          {
+            "name": "total_tokens",
+            "baseline": 38.0,
+            "candidate": 37.0,
+            "change": -1.0,
+            "pct_change": -2.631579,
+            "threshold_pct": 50.0,
+            "exceeded": false
+          },
+          {
+            "name": "cost_usd",
+            "baseline": 7.6e-05,
+            "candidate": 7.4e-05,
+            "change": -2e-06,
+            "pct_change": -2.631579,
+            "threshold_pct": 50.0,
+            "exceeded": false
+          }
+        ]
+      },
+      "failure_codes": [],
+      "failure_reasons": [],
+      "error": null,
+      "baseline_preview": "Quarterly revenue grew by 12 percent.",
+      "candidate_preview": "Quarterly revenue grew 12 percent."
+    },
+    {
+      "id": "sentiment",
+      "name": null,
+      "status": "PASS",
+      "weight": 2.0,
+      "tags": [],
+      "assertions": [
+        {
+          "type": "json_keys",
+          "passed": true,
+          "message": "all required keys present"
+        }
+      ],
+      "drift": {
+        "similarity": 0.915032679739,
+        "similarity_method": "lexical",
+        "text_changed": true,
+        "json_diff": {
+          "baseline_valid": true,
+          "candidate_valid": true,
+          "added": [],
+          "removed": [],
+          "type_changed": [],
+          "value_changed": [
+            "confidence"
+          ]
+        },
+        "metrics": [
+          {
+            "name": "latency_ms",
+            "baseline": 340.0,
+            "candidate": 355.0,
+            "change": 15.0,
+            "pct_change": 4.411765,
+            "threshold_pct": 50.0,
+            "exceeded": false
+          },
+          {
+            "name": "total_tokens",
+            "baseline": 31.0,
+            "candidate": 31.0,
+            "change": 0.0,
+            "pct_change": 0.0,
+            "threshold_pct": 50.0,
+            "exceeded": false
+          },
+          {
+            "name": "cost_usd",
+            "baseline": 6.2e-05,
+            "candidate": 6.2e-05,
+            "change": 0.0,
+            "pct_change": 0.0,
+            "threshold_pct": 50.0,
+            "exceeded": false
+          }
+        ]
+      },
+      "failure_codes": [],
+      "failure_reasons": [],
+      "error": null,
+      "baseline_preview": "{\"label\": \"positive\", \"confidence\": 0.93}",
+      "candidate_preview": "{\"label\": \"positive\", \"confidence\": 0.91}"
+    },
+    {
+      "id": "farewell",
+      "name": null,
+      "status": "PASS",
+      "weight": 0.5,
+      "tags": [],
+      "assertions": [
+        {
+          "type": "non_empty",
+          "passed": true,
+          "message": "output is non-empty"
+        }
+      ],
+      "drift": {
+        "similarity": 1.0,
+        "similarity_method": "lexical",
+        "text_changed": false,
+        "json_diff": null,
+        "metrics": [
+          {
+            "name": "latency_ms",
+            "baseline": 300.0,
+            "candidate": 310.0,
+            "change": 10.0,
+            "pct_change": 3.333333,
+            "threshold_pct": 50.0,
+            "exceeded": false
+          },
+          {
+            "name": "total_tokens",
+            "baseline": 18.0,
+            "candidate": 18.0,
+            "change": 0.0,
+            "pct_change": 0.0,
+            "threshold_pct": 50.0,
+            "exceeded": false
+          },
+          {
+            "name": "cost_usd",
+            "baseline": 3.6e-05,
+            "candidate": 3.6e-05,
+            "change": 0.0,
+            "pct_change": 0.0,
+            "threshold_pct": 50.0,
+            "exceeded": false
+          }
+        ]
+      },
+      "failure_codes": [],
+      "failure_reasons": [],
+      "error": null,
+      "baseline_preview": "Goodbye, and have a wonderful day!",
+      "candidate_preview": "Goodbye, and have a wonderful day!"
+    }
+  ]
+}

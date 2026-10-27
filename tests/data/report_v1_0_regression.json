@@ -1,0 +1,584 @@
+{
+  "metadata": {
+    "driftguard_version": "1.0.0",
+    "run_id": "b22721c0b212",
+    "generated_at": "2023-11-14T22:13:20Z",
+    "suite_name": "simulated-regression",
+    "suite_version": "1",
+    "suite_description": "Simulated with seed 1 (DriftGuard simulator)",
+    "suite_sha256": "be6226a337f600735ca84199e583748f811c8bd39a6ea6ea6d934981f6196204",
+    "config": {
+      "similarity": "lexical",
+      "seed": 0,
+      "bootstrap_resamples": 2000,
+      "permutation_resamples": 10000,
+      "confidence": 0.95,
+      "alpha": 0.05,
+      "min_pairs": 6
+    },
+    "thresholds": {
+      "min_similarity": 0.75,
+      "max_latency_increase_pct": 50.0,
+      "max_token_increase_pct": 50.0,
+      "max_cost_increase_pct": 50.0,
+      "fail_on_json_structure_change": true,
+      "fail_on_json_value_change": false
+    }
+  },
+  "status": "FAIL",
+  "summary": {
+    "total": 8,
+    "passed": 5,
+    "failed": 3,
+    "errors": 0,
+    "inconclusive": 0,
+    "pass_rate": 0.625,
+    "weighted_pass_rate": 0.6296296296296297,
+    "failure_reasons": {
+      "assertion:json_keys": 1,
+      "assertion:non_empty": 1,
+      "drift:json_structure": 1,
+      "drift:latency": 1,
+      "drift:similarity": 2
+    },
+    "drift": [
+      {
+        "metric": "similarity",
+        "n_pairs": 8,
+        "mean_baseline": null,
+        "mean_candidate": 0.8562836340614814,
+        "mean_diff": null,
+        "ci_low": 0.6363636363636364,
+        "ci_high": 1.0,
+        "confidence": 0.95,
+        "ci_method": "percentile bootstrap (resampling cases with replacement)",
+        "p_value": null,
+        "test": null,
+        "significant": null,
+        "note": "weighted mean text similarity to baseline (1.0 = identical); no hypothesis test is applied to similarity"
+      },
+      {
+        "metric": "latency_ms",
+        "n_pairs": 8,
+        "mean_baseline": 468.29044444444446,
+        "mean_candidate": 575.6157037037037,
+        "mean_diff": 107.32525925925927,
+        "ci_low": -17.227259259259274,
+        "ci_high": 343.53038461538466,
+        "confidence": 0.95,
+        "ci_method": "percentile bootstrap (resampling cases with replacement)",
+        "p_value": 0.59375,
+        "test": "paired sign-flip randomization test on the weighted mean difference (two-sided); exact",
+        "significant": false,
+        "note": "alpha=0.05; p-values are not corrected for multiple metrics"
+      },
+      {
+        "metric": "total_tokens",
+        "n_pairs": 8,
+        "mean_baseline": 51.25925925925926,
+        "mean_candidate": 52.333333333333336,
+        "mean_diff": 1.0740740740740742,
+        "ci_low": 0.1111111111111111,
+        "ci_high": 1.8571428571428572,
+        "confidence": 0.95,
+        "ci_method": "percentile bootstrap (resampling cases with replacement)",
+        "p_value": 0.09375,
+        "test": "paired sign-flip randomization test on the weighted mean difference (two-sided); exact",
+        "significant": false,
+        "note": "alpha=0.05; p-values are not corrected for multiple metrics"
+      },
+      {
+        "metric": "cost_usd",
+        "n_pairs": 8,
+        "mean_baseline": 0.00010251851851851852,
+        "mean_candidate": 0.00010466666666666666,
+        "mean_diff": 2.1481481481481532e-06,
+        "ci_low": 2.222222222222201e-07,
+        "ci_high": 3.7142857142857205e-06,
+        "confidence": 0.95,
+        "ci_method": "percentile bootstrap (resampling cases with replacement)",
+        "p_value": 0.09375,
+        "test": "paired sign-flip randomization test on the weighted mean difference (two-sided); exact",
+        "significant": false,
+        "note": "alpha=0.05; p-values are not corrected for multiple metrics"
+      }
+    ]
+  },
+  "results": [
+    {
+      "id": "greeting",
+      "name": null,
+      "status": "PASS",
+      "weight": 1.0,
+      "tags": [],
+      "assertions": [
+        {
+          "type": "non_empty",
+          "passed": true,
+          "message": "output is non-empty"
+        }
+      ],
+      "drift": {
+        "similarity": 1.0,
+        "similarity_method": "lexical",
+        "text_changed": false,
+        "json_diff": null,
+        "metrics": [
+          {
+            "name": "latency_ms",
+            "baseline": 389.391,
+            "candidate": 407.912,
+            "change": 18.521,
+            "pct_change": 4.756402,
+            "threshold_pct": 50.0,
+            "exceeded": false
+          },
+          {
+            "name": "total_tokens",
+            "baseline": 31.0,
+            "candidate": 29.0,
+            "change": -2.0,
+            "pct_change": -6.451613,
+            "threshold_pct": 50.0,
+            "exceeded": false
+          },
+          {
+            "name": "cost_usd",
+            "baseline": 6.2e-05,
+            "candidate": 5.8e-05,
+            "change": -4e-06,
+            "pct_change": -6.451613,
+            "threshold_pct": 50.0,
+            "exceeded": false
+          }
+        ]
+      },
+      "failure_codes": [],
+      "failure_reasons": [],
+      "error": null,
+      "baseline_preview": "Hello! How can I help you with your account today?",
+      "candidate_preview": "Hello! How can I help you with your account today?"
+    },
+    {
+      "id": "refund_policy",
+      "name": null,
+      "status": "FAIL",
+      "weight": 2.0,
+      "tags": [],
+      "assertions": [
+        {
+          "type": "non_empty",
+          "passed": true,
+          "message": "output is non-empty"
+        }
+      ],
+      "drift": {
+        "similarity": 1.0,
+        "similarity_method": "lexical",
+        "text_changed": false,
+        "json_diff": null,
+        "metrics": [
+          {
+            "name": "latency_ms",
+            "baseline": 635.478,
+            "candidate": 1379.605,
+            "change": 744.127,
+            "pct_change": 117.097209,
+            "threshold_pct": 50.0,
+            "exceeded": true
+          },
+          {
+            "name": "total_tokens",
+            "baseline": 61.0,
+            "candidate": 63.0,
+            "change": 2.0,
+            "pct_change": 3.278689,
+            "threshold_pct": 50.0,
+            "exceeded": false
+          },
+          {
+            "name": "cost_usd",
+            "baseline": 0.000122,
+            "candidate": 0.000126,
+            "change": 4e-06,
+            "pct_change": 3.278689,
+            "threshold_pct": 50.0,
+            "exceeded": false
+          }
+        ]
+      },
+      "failure_codes": [
+        "drift:latency"
+      ],
+      "failure_reasons": [
+        "latency increased 117.1% (limit 50.0%)"
+      ],
+      "error": null,
+      "baseline_preview": "Refunds are available within thirty days of purchase when you present a valid receipt at the store.",
+      "candidate_preview": "Refunds are available within thirty days of purchase when you present a valid receipt at the store."
+    },
+    {
+      "id": "order_status",
+      "name": null,
+      "status": "PASS",
+      "weight": 3.0,
+      "tags": [],
+      "assertions": [
+        {
+          "type": "json_keys",
+          "passed": true,
+          "message": "all required keys present"
+        }
+      ],
+      "drift": {
+        "similarity": 1.0,
+        "similarity_method": "lexical",
+        "text_changed": false,
+        "json_diff": {
+          "baseline_valid": true,
+          "candidate_valid": true,
+          "added": [],
+          "removed": [],
+          "type_changed": [],
+          "value_changed": []
+        },
+        "metrics": [
+          {
+            "name": "latency_ms",
+            "baseline": 379.957,
+            "candidate": 390.626,
+            "change": 10.669,
+            "pct_change": 2.807949,
+            "threshold_pct": 50.0,
+            "exceeded": false
+          },
+          {
+            "name": "total_tokens",
+            "baseline": 37.0,
+            "candidate": 38.0,
+            "change": 1.0,
+            "pct_change": 2.702703,
+            "threshold_pct": 50.0,
+            "exceeded": false
+          },
+          {
+            "name": "cost_usd",
+            "baseline": 7.4e-05,
+            "candidate": 7.6e-05,
+            "change": 2e-06,
+            "pct_change": 2.702703,
+            "threshold_pct": 50.0,
+            "exceeded": false
+          }
+        ]
+      },
+      "failure_codes": [],
+      "failure_reasons": [],
+      "error": null,
+      "baseline_preview": "{\"status\": \"shipped\", \"eta_days\": 3, \"carrier\": \"DHL\"}",
+      "candidate_preview": "{\"status\": \"shipped\", \"eta_days\": 3, \"carrier\": \"DHL\"}"
+    },
+    {
+      "id": "invoice_summary",
+      "name": null,
+      "status": "PASS",
+      "weight": 2.0,
+      "tags": [],
+      "assertions": [
+        {
+          "type": "json_schema",
+          "passed": true,
+          "message": "output matches schema"
+        }
+      ],
+      "drift": {
+        "similarity": 1.0,
+        "similarity_method": "lexical",
+        "text_changed": false,
+        "json_diff": {
+          "baseline_valid": true,
+          "candidate_valid": true,
+          "added": [],
+          "removed": [],
+          "type_changed": [],
+          "value_changed": []
+        },
+        "metrics": [
+          {
+            "name": "latency_ms",
+            "baseline": 499.852,
+            "candidate": 497.156,
+            "change": -2.696,
+            "pct_change": -0.53936,
+            "threshold_pct": 50.0,
+            "exceeded": false
+          },
+          {
+            "name": "total_tokens",
+            "baseline": 69.0,
+            "candidate": 71.0,
+            "change": 2.0,
+            "pct_change": 2.898551,
+            "threshold_pct": 50.0,
+            "exceeded": false
+          },
+          {
+            "name": "cost_usd",
+            "baseline": 0.000138,
+            "candidate": 0.000142,
+            "change": 4e-06,
+            "pct_change": 2.898551,
+            "threshold_pct": 50.0,
+            "exceeded": false
+          }
+        ]
+      },
+      "failure_codes": [],
+      "failure_reasons": [],
+      "error": null,
+      "baseline_preview": "{\"total\": 149.5, \"currency\": \"USD\", \"note\": \"Payment received in full, thank you for your business\"}",
+      "candidate_preview": "{\"total\": 149.5, \"currency\": \"USD\", \"note\": \"Payment received in full, thank you for your business\"}"
+    },
+    {
+      "id": "troubleshoot",
+      "name": null,
+      "status": "PASS",
+      "weight": 1.5,
+      "tags": [],
+      "assertions": [
+        {
+          "type": "non_empty",
+          "passed": true,
+          "message": "output is non-empty"
+        }
+      ],
+      "drift": {
+        "similarity": 1.0,
+        "similarity_method": "lexical",
+        "text_changed": false,
+        "json_diff": null,
+        "metrics": [
+          {
+            "name": "latency_ms",
+            "baseline": 731.214,
+            "candidate": 671.626,
+            "change": -59.588,
+            "pct_change": -8.149188,
+            "threshold_pct": 50.0,
+            "exceeded": false
+          },
+          {
+            "name": "total_tokens",
+            "baseline": 68.0,
+            "candidate": 71.0,
+            "change": 3.0,
+            "pct_change": 4.411765,
+            "threshold_pct": 50.0,
+            "exceeded": false
+          },
+          {
+            "name": "cost_usd",
+            "baseline": 0.000136,
+            "candidate": 0.000142,
+            "change": 6e-06,
+            "pct_change": 4.411765,
+            "threshold_pct": 50.0,
+            "exceeded": false
+          }
+        ]
+      },
+      "failure_codes": [],
+      "failure_reasons": [],
+      "error": null,
+      "baseline_preview": "Unplug the router, wait thirty seconds, plug it back in, and wait for the lights to turn green.",
+      "candidate_preview": "Unplug the router, wait thirty seconds, plug it back in, and wait for the lights to turn green."
+    },
+    {
+      "id": "translation",
+      "name": null,
+      "status": "PASS",
+      "weight": 1.0,
+      "tags": [],
+      "assertions": [
+        {
+          "type": "exact_match",
+          "passed": true,
+          "message": "output matches expected"
+        }
+      ],
+      "drift": {
+        "similarity": 1.0,
+        "similarity_method": "lexical",
+        "text_changed": false,
+        "json_diff": null,
+        "metrics": [
+          {
+            "name": "latency_ms",
+            "baseline": 257.832,
+            "candidate": 259.474,
+            "change": 1.642,
+            "pct_change": 0.636849,
+            "threshold_pct": 50.0,
+            "exceeded": false
+          },
+          {
+            "name": "total_tokens",
+            "baseline": 16.0,
+            "candidate": 16.0,
+            "change": 0.0,
+            "pct_change": 0.0,
+            "threshold_pct": 50.0,
+            "exceeded": false
+          },
+          {
+            "name": "cost_usd",
+            "baseline": 3.2e-05,
+            "candidate": 3.2e-05,
+            "change": 0.0,
+            "pct_change": 0.0,
+            "threshold_pct": 50.0,
+            "exceeded": false
+          }
+        ]
+      },
+      "failure_codes": [],
+      "failure_reasons": [],
+      "error": null,
+      "baseline_preview": "Merci beaucoup",
+      "candidate_preview": "Merci beaucoup"
+    },
+    {
+      "id": "summary",
+      "name": null,
+      "status": "FAIL",
+      "weight": 1.0,
+      "tags": [],
+      "assertions": [
+        {
+          "type": "non_empty",
+          "passed": false,
+          "message": "output is empty"
+        }
+      ],
+      "drift": {
+        "similarity": 0.0,
+        "similarity_method": "lexical",
+        "text_changed": true,
+        "json_diff": null,
+        "metrics": [
+          {
+            "name": "latency_ms",
+            "baseline": 574.4,
+            "candidate": 555.281,
+            "change": -19.119,
+            "pct_change": -3.328517,
+            "threshold_pct": 50.0,
+            "exceeded": false
+          },
+          {
+            "name": "total_tokens",
+            "baseline": 88.0,
+            "candidate": 89.0,
+            "change": 1.0,
+            "pct_change": 1.136364,
+            "threshold_pct": 50.0,
+            "exceeded": false
+          },
+          {
+            "name": "cost_usd",
+            "baseline": 0.000176,
+            "candidate": 0.000178,
+            "change": 2e-06,
+            "pct_change": 1.136364,
+            "threshold_pct": 50.0,
+            "exceeded": false
+          }
+        ]
+      },
+      "failure_codes": [
+        "assertion:non_empty",
+        "drift:similarity"
+      ],
+      "failure_reasons": [
+        "non_empty: output is empty",
+        "text similarity 0.000 is below the minimum 0.750"
+      ],
+      "error": null,
+      "baseline_preview": "The team agreed to ship the release on Friday and to postpone the migration until next month.",
+      "candidate_preview": ""
+    },
+    {
+      "id": "classification",
+      "name": null,
+      "status": "FAIL",
+      "weight": 2.0,
+      "tags": [],
+      "assertions": [
+        {
+          "type": "json_keys",
+          "passed": false,
+          "message": "missing keys: category"
+        }
+      ],
+      "drift": {
+        "similarity": 0.529914529915,
+        "similarity_method": "lexical",
+        "text_changed": true,
+        "json_diff": {
+          "baseline_valid": true,
+          "candidate_valid": true,
+          "added": [],
+          "removed": [
+            "category"
+          ],
+          "type_changed": [],
+          "value_changed": [
+            "priority"
+          ]
+        },
+        "metrics": [
+          {
+            "name": "latency_ms",
+            "baseline": 296.473,
+            "candidate": 307.653,
+            "change": 11.18,
+            "pct_change": 3.771001,
+            "threshold_pct": 50.0,
+            "exceeded": false
+          },
+          {
+            "name": "total_tokens",
+            "baseline": 42.0,
+            "candidate": 42.0,
+            "change": 0.0,
+            "pct_change": 0.0,
+            "threshold_pct": 50.0,
+            "exceeded": false
+          },
+          {
+            "name": "cost_usd",
+            "baseline": 8.4e-05,
+            "candidate": 8.4e-05,
+            "change": 0.0,
+            "pct_change": 0.0,
+            "threshold_pct": 50.0,
+            "exceeded": false
+          }
+        ]
+      },
+      "failure_codes": [
+        "assertion:json_keys",
+        "drift:similarity",
+        "drift:json_structure"
+      ],
+      "failure_reasons": [
+        "json_keys: missing keys: category",
+        "text similarity 0.530 is below the minimum 0.750",
+        "JSON structure changed: removed category"
+      ],
+      "error": null,
+      "baseline_preview": "{\"priority\": \"high\", \"category\": \"billing\"}",
+      "candidate_preview": "{\"priority\": \"typically\"}"
+    }
+  ]
+}

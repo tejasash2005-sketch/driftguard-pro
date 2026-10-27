@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="demo-support-bot" tests="8" failures="0" errors="0" skipped="0" time="0" timestamp="2023-11-14T22:13:20Z">
+  <properties>
+    <property name="run_id" value="728855c909d5" />
+    <property name="driftguard_version" value="1.1.2" />
+    <property name="suite_sha256" value="f129066032481585f44e71545e2071fcaa5febd3ec23560f26615e9657ac2c18" />
+    <property name="seed" value="0" />
+  </properties>
+  <testcase classname="demo-support-bot" name="greeting" time="0" />
+  <testcase classname="demo-support-bot" name="refund_policy" time="0" />
+  <testcase classname="demo-support-bot" name="order_status" time="0" />
+  <testcase classname="demo-support-bot" name="capital_france" time="0" />
+  <testcase classname="demo-support-bot" name="translate" time="0" />
+  <testcase classname="demo-support-bot" name="summary" time="0" />
+  <testcase classname="demo-support-bot" name="sentiment" time="0" />
+  <testcase classname="demo-support-bot" name="farewell" time="0" />
+</testsuite>

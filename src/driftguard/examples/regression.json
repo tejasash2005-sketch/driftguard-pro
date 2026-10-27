@@ -1,0 +1,298 @@
+{
+  "name": "simulated-regression",
+  "description": "Simulated with seed 1 (DriftGuard simulator)",
+  "version": "1",
+  "thresholds": {
+    "min_similarity": 0.75,
+    "max_latency_increase_pct": 50.0,
+    "max_token_increase_pct": 50.0,
+    "max_cost_increase_pct": 50.0,
+    "fail_on_json_structure_change": true,
+    "fail_on_json_value_change": false
+  },
+  "cases": [
+    {
+      "id": "greeting",
+      "name": null,
+      "prompt": "Greet the user.",
+      "assertions": [
+        {
+          "type": "non_empty"
+        }
+      ],
+      "weight": 1.0,
+      "baseline": {
+        "text": "Hello! How can I help you with your account today?",
+        "latency_ms": 389.391,
+        "prompt_tokens": 16,
+        "completion_tokens": 15,
+        "cost_usd": 6.2e-05,
+        "metadata": {}
+      },
+      "candidate": {
+        "text": "Hello! How can I help you with your account today?",
+        "latency_ms": 407.912,
+        "prompt_tokens": 15,
+        "completion_tokens": 14,
+        "cost_usd": 5.8e-05,
+        "metadata": {
+          "simulated_regressions": []
+        }
+      },
+      "min_similarity": null,
+      "tags": []
+    },
+    {
+      "id": "refund_policy",
+      "name": null,
+      "prompt": "Explain the refund policy.",
+      "assertions": [
+        {
+          "type": "non_empty"
+        }
+      ],
+      "weight": 2.0,
+      "baseline": {
+        "text": "Refunds are available within thirty days of purchase when you present a valid receipt at the store.",
+        "latency_ms": 635.478,
+        "prompt_tokens": 22,
+        "completion_tokens": 39,
+        "cost_usd": 0.000122,
+        "metadata": {}
+      },
+      "candidate": {
+        "text": "Refunds are available within thirty days of purchase when you present a valid receipt at the store.",
+        "latency_ms": 1379.605,
+        "prompt_tokens": 22,
+        "completion_tokens": 41,
+        "cost_usd": 0.000126,
+        "metadata": {
+          "simulated_regressions": [
+            "latency"
+          ]
+        }
+      },
+      "min_similarity": null,
+      "tags": []
+    },
+    {
+      "id": "order_status",
+      "name": null,
+      "prompt": "Order status as JSON.",
+      "assertions": [
+        {
+          "type": "json_keys",
+          "keys": [
+            "status",
+            "eta_days",
+            "carrier"
+          ]
+        }
+      ],
+      "weight": 3.0,
+      "baseline": {
+        "text": "{\"status\": \"shipped\", \"eta_days\": 3, \"carrier\": \"DHL\"}",
+        "latency_ms": 379.957,
+        "prompt_tokens": 19,
+        "completion_tokens": 18,
+        "cost_usd": 7.4e-05,
+        "metadata": {}
+      },
+      "candidate": {
+        "text": "{\"status\": \"shipped\", \"eta_days\": 3, \"carrier\": \"DHL\"}",
+        "latency_ms": 390.626,
+        "prompt_tokens": 19,
+        "completion_tokens": 19,
+        "cost_usd": 7.6e-05,
+        "metadata": {
+          "simulated_regressions": []
+        }
+      },
+      "min_similarity": null,
+      "tags": []
+    },
+    {
+      "id": "invoice_summary",
+      "name": null,
+      "prompt": "Summarize the invoice as JSON.",
+      "assertions": [
+        {
+          "type": "json_schema",
+          "schema": {
+            "type": "object",
+            "required": [
+              "total",
+              "currency"
+            ],
+            "properties": {
+              "total": {
+                "type": "number"
+              },
+              "currency": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      ],
+      "weight": 2.0,
+      "baseline": {
+        "text": "{\"total\": 149.5, \"currency\": \"USD\", \"note\": \"Payment received in full, thank you for your business\"}",
+        "latency_ms": 499.852,
+        "prompt_tokens": 39,
+        "completion_tokens": 30,
+        "cost_usd": 0.000138,
+        "metadata": {}
+      },
+      "candidate": {
+        "text": "{\"total\": 149.5, \"currency\": \"USD\", \"note\": \"Payment received in full, thank you for your business\"}",
+        "latency_ms": 497.156,
+        "prompt_tokens": 42,
+        "completion_tokens": 29,
+        "cost_usd": 0.000142,
+        "metadata": {
+          "simulated_regressions": []
+        }
+      },
+      "min_similarity": null,
+      "tags": []
+    },
+    {
+      "id": "troubleshoot",
+      "name": null,
+      "prompt": "Help the user reset their router.",
+      "assertions": [
+        {
+          "type": "non_empty"
+        }
+      ],
+      "weight": 1.5,
+      "baseline": {
+        "text": "Unplug the router, wait thirty seconds, plug it back in, and wait for the lights to turn green.",
+        "latency_ms": 731.214,
+        "prompt_tokens": 25,
+        "completion_tokens": 43,
+        "cost_usd": 0.000136,
+        "metadata": {}
+      },
+      "candidate": {
+        "text": "Unplug the router, wait thirty seconds, plug it back in, and wait for the lights to turn green.",
+        "latency_ms": 671.626,
+        "prompt_tokens": 24,
+        "completion_tokens": 47,
+        "cost_usd": 0.000142,
+        "metadata": {
+          "simulated_regressions": []
+        }
+      },
+      "min_similarity": null,
+      "tags": []
+    },
+    {
+      "id": "translation",
+      "name": null,
+      "prompt": "Translate 'thank you' into French.",
+      "assertions": [
+        {
+          "type": "exact_match",
+          "expected": "Merci beaucoup",
+          "strip": true,
+          "case_sensitive": true
+        }
+      ],
+      "weight": 1.0,
+      "baseline": {
+        "text": "Merci beaucoup",
+        "latency_ms": 257.832,
+        "prompt_tokens": 12,
+        "completion_tokens": 4,
+        "cost_usd": 3.2e-05,
+        "metadata": {}
+      },
+      "candidate": {
+        "text": "Merci beaucoup",
+        "latency_ms": 259.474,
+        "prompt_tokens": 12,
+        "completion_tokens": 4,
+        "cost_usd": 3.2e-05,
+        "metadata": {
+          "simulated_regressions": []
+        }
+      },
+      "min_similarity": null,
+      "tags": []
+    },
+    {
+      "id": "summary",
+      "name": null,
+      "prompt": "Summarize the meeting notes.",
+      "assertions": [
+        {
+          "type": "non_empty"
+        }
+      ],
+      "weight": 1.0,
+      "baseline": {
+        "text": "The team agreed to ship the release on Friday and to postpone the migration until next month.",
+        "latency_ms": 574.4,
+        "prompt_tokens": 60,
+        "completion_tokens": 28,
+        "cost_usd": 0.000176,
+        "metadata": {}
+      },
+      "candidate": {
+        "text": "",
+        "latency_ms": 555.281,
+        "prompt_tokens": 60,
+        "completion_tokens": 29,
+        "cost_usd": 0.000178,
+        "metadata": {
+          "simulated_regressions": [
+            "json_break",
+            "empty"
+          ]
+        }
+      },
+      "min_similarity": null,
+      "tags": []
+    },
+    {
+      "id": "classification",
+      "name": null,
+      "prompt": "Classify the ticket priority as JSON.",
+      "assertions": [
+        {
+          "type": "json_keys",
+          "keys": [
+            "priority",
+            "category"
+          ]
+        }
+      ],
+      "weight": 2.0,
+      "baseline": {
+        "text": "{\"priority\": \"high\", \"category\": \"billing\"}",
+        "latency_ms": 296.473,
+        "prompt_tokens": 30,
+        "completion_tokens": 12,
+        "cost_usd": 8.4e-05,
+        "metadata": {}
+      },
+      "candidate": {
+        "text": "{\"priority\": \"typically\"}",
+        "latency_ms": 307.653,
+        "prompt_tokens": 30,
+        "completion_tokens": 12,
+        "cost_usd": 8.4e-05,
+        "metadata": {
+          "simulated_regressions": [
+            "text_drift",
+            "json_break"
+          ]
+        }
+      },
+      "min_similarity": null,
+      "tags": []
+    }
+  ]
+}

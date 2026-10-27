@@ -1,0 +1,177 @@
+{
+  "name": "simulated-regression",
+  "seed": 1,
+  "noise": 0.05,
+  "thresholds": {
+    "min_similarity": 0.75,
+    "max_latency_increase_pct": 50,
+    "max_token_increase_pct": 50,
+    "max_cost_increase_pct": 50
+  },
+  "cases": [
+    {
+      "id": "greeting",
+      "prompt": "Greet the user.",
+      "weight": 1,
+      "base_text": "Hello! How can I help you with your account today?",
+      "base_latency_ms": 400,
+      "prompt_tokens": 15,
+      "completion_tokens": 14,
+      "assertions": [
+        {
+          "type": "non_empty"
+        }
+      ]
+    },
+    {
+      "id": "refund_policy",
+      "prompt": "Explain the refund policy.",
+      "weight": 2,
+      "base_text": "Refunds are available within thirty days of purchase when you present a valid receipt at the store.",
+      "base_latency_ms": 650,
+      "prompt_tokens": 22,
+      "completion_tokens": 40,
+      "assertions": [
+        {
+          "type": "non_empty"
+        }
+      ]
+    },
+    {
+      "id": "order_status",
+      "prompt": "Order status as JSON.",
+      "weight": 3,
+      "base_text": "{\"status\": \"shipped\", \"eta_days\": 3, \"carrier\": \"DHL\"}",
+      "base_latency_ms": 380,
+      "prompt_tokens": 20,
+      "completion_tokens": 18,
+      "assertions": [
+        {
+          "type": "json_keys",
+          "keys": [
+            "status",
+            "eta_days",
+            "carrier"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "invoice_summary",
+      "prompt": "Summarize the invoice as JSON.",
+      "weight": 2,
+      "base_text": "{\"total\": 149.5, \"currency\": \"USD\", \"note\": \"Payment received in full, thank you for your business\"}",
+      "base_latency_ms": 520,
+      "prompt_tokens": 40,
+      "completion_tokens": 30,
+      "assertions": [
+        {
+          "type": "json_schema",
+          "schema": {
+            "type": "object",
+            "required": [
+              "total",
+              "currency"
+            ],
+            "properties": {
+              "total": {
+                "type": "number"
+              },
+              "currency": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "troubleshoot",
+      "prompt": "Help the user reset their router.",
+      "weight": 1.5,
+      "base_text": "Unplug the router, wait thirty seconds, plug it back in, and wait for the lights to turn green.",
+      "base_latency_ms": 700,
+      "prompt_tokens": 25,
+      "completion_tokens": 45,
+      "assertions": [
+        {
+          "type": "non_empty"
+        }
+      ]
+    },
+    {
+      "id": "translation",
+      "prompt": "Translate 'thank you' into French.",
+      "weight": 1,
+      "base_text": "Merci beaucoup",
+      "base_latency_ms": 250,
+      "prompt_tokens": 12,
+      "completion_tokens": 4,
+      "assertions": [
+        {
+          "type": "exact_match",
+          "expected": "Merci beaucoup"
+        }
+      ]
+    },
+    {
+      "id": "summary",
+      "prompt": "Summarize the meeting notes.",
+      "weight": 1,
+      "base_text": "The team agreed to ship the release on Friday and to postpone the migration until next month.",
+      "base_latency_ms": 560,
+      "prompt_tokens": 60,
+      "completion_tokens": 28,
+      "assertions": [
+        {
+          "type": "non_empty"
+        }
+      ]
+    },
+    {
+      "id": "classification",
+      "prompt": "Classify the ticket priority as JSON.",
+      "weight": 2,
+      "base_text": "{\"priority\": \"high\", \"category\": \"billing\"}",
+      "base_latency_ms": 300,
+      "prompt_tokens": 30,
+      "completion_tokens": 12,
+      "assertions": [
+        {
+          "type": "json_keys",
+          "keys": [
+            "priority",
+            "category"
+          ]
+        }
+      ]
+    }
+  ],
+  "regressions": [
+    {
+      "kind": "text_drift",
+      "probability": 0.25,
+      "magnitude": 0.35
+    },
+    {
+      "kind": "latency",
+      "probability": 0.25,
+      "magnitude": 1.2
+    },
+    {
+      "kind": "tokens",
+      "probability": 0.15,
+      "magnitude": 0.8
+    },
+    {
+      "kind": "json_break",
+      "probability": 0.2,
+      "magnitude": 1
+    },
+    {
+      "kind": "empty",
+      "probability": 0.05,
+      "magnitude": 1
+    }
+  ]
+}

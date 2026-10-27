@@ -1,0 +1,16 @@
+{
+  "name": "openai:m",
+  "responses": {
+    "a": {
+      "text": "answer",
+      "latency_ms": 0.015,
+      "prompt_tokens": 1,
+      "completion_tokens": 2,
+      "cost_usd": 5e-06,
+      "metadata": {
+        "provider": "openai",
+        "model": "m"
+      }
+    }
+  }
+}

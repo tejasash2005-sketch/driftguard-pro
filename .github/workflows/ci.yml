@@ -1,0 +1,80 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    name: Python ${{ matrix.python-version }} on ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+        python-version: ["3.11", "3.12"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: pip
+          cache-dependency-path: pyproject.toml
+      - name: Install
+        run: python -m pip install -e ".[dev]"
+      - name: Lint
+        run: |
+          ruff check .
+          ruff format --check .
+      - name: Type check
+        run: mypy
+      - name: Tests (coverage gate is configured in pyproject.toml)
+        run: pytest -q --cov --cov-report=term-missing
+      - name: CLI smoke test
+        shell: pwsh
+        run: |
+          driftguard --help
+          if ($LASTEXITCODE -ne 0) { throw "CLI help failed with $LASTEXITCODE" }
+          driftguard validate examples/demo.json examples/regression.json
+          if ($LASTEXITCODE -ne 0) { throw "Suite validation failed with $LASTEXITCODE" }
+          driftguard run examples/demo.json --out-dir reports --formats json,junit,md
+          if ($LASTEXITCODE -ne 0) { throw "Healthy example failed with $LASTEXITCODE" }
+          driftguard run examples/regression.json --out-dir reports --formats json
+          if ($LASTEXITCODE -ne 1) { throw "Expected regression fixture to exit 1; got $LASTEXITCODE" }
+          driftguard diff reports/demo-support-bot.report.json reports/demo-support-bot.report.json
+          if ($LASTEXITCODE -ne 0) { throw "Identical report diff failed with $LASTEXITCODE" }
+      - name: Offline baseline and candidate regression gate demo
+        run: python scripts/regression_gate_demo.py
+      - name: Regression gate positive and negative unit tests
+        run: pytest -q tests/test_v11_api_cli.py -k cli_diff
+      - name: Upload reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: driftguard-reports-${{ matrix.os }}-py${{ matrix.python-version }}
+          path: reports/
+          if-no-files-found: ignore
+
+  audit:
+    name: Dependency audit
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: python -m pip install --upgrade pip pip-audit
+      - run: python -m pip install .
+      - run: pip-audit
+
+  docker:
+    name: Docker build
+    runs-on: ubuntu-latest
+    needs: test
+    steps:
+      - uses: actions/checkout@v4
+      - run: docker build -t driftguard-pro .

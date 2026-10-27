@@ -1,0 +1,1 @@
+{"name": "s.json", "cases": [{"id": "a", "baseline": {"text": "the cat sat"}, "candidate": {"text": "the cat sat down now"}}]}

@@ -1,0 +1,17 @@
+{
+  "name": "regression-gate-demo",
+  "version": "1",
+  "thresholds": {
+    "min_similarity": 0.65,
+    "max_latency_increase_pct": 50
+  },
+  "cases": [
+    {
+      "id": "shipping-update",
+      "prompt": "Give the customer their shipping update.",
+      "assertions": [{"type": "contains", "value": "approved"}],
+      "baseline": {"text": "The request was approved and will ship tomorrow.", "latency_ms": 100},
+      "candidate": {"text": "I cannot find that order.", "latency_ms": 300}
+    }
+  ]
+}

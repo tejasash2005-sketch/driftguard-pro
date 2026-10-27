@@ -1,0 +1,175 @@
+{
+  "metadata": {
+    "driftguard_version": "1.1.2",
+    "run_id": "5c9cb2bff1fc",
+    "generated_at": "2023-11-14T22:13:20Z",
+    "suite_name": "Report Suite",
+    "suite_version": "1",
+    "suite_description": "",
+    "suite_sha256": "eafdd5861d4edabecaa1f40c02b2469695eabe7697c6fec56c3d94c6eca6f546",
+    "report_schema_version": 2,
+    "config": {
+      "similarity": "lexical",
+      "seed": 0,
+      "bootstrap_resamples": 2000,
+      "permutation_resamples": 10000,
+      "confidence": 0.95,
+      "alpha": 0.05,
+      "min_pairs": 6
+    },
+    "thresholds": {
+      "min_similarity": 0.8,
+      "max_latency_increase_pct": 50.0,
+      "max_token_increase_pct": 50.0,
+      "max_cost_increase_pct": 50.0,
+      "fail_on_json_structure_change": true,
+      "fail_on_json_value_change": false
+    }
+  },
+  "status": "FAIL",
+  "summary": {
+    "total": 2,
+    "passed": 1,
+    "failed": 1,
+    "errors": 0,
+    "inconclusive": 0,
+    "pass_rate": 0.5,
+    "weighted_pass_rate": 0.5,
+    "failure_reasons": {
+      "assertion:non_empty": 1,
+      "drift:similarity": 1
+    },
+    "drift": [
+      {
+        "metric": "similarity",
+        "n_pairs": 2,
+        "mean_baseline": null,
+        "mean_candidate": 0.5,
+        "mean_diff": null,
+        "ci_low": 0.0,
+        "ci_high": 1.0,
+        "confidence": 0.95,
+        "ci_method": "percentile bootstrap (resampling cases with replacement)",
+        "p_value": null,
+        "test": null,
+        "significant": null,
+        "note": "weighted mean text similarity to baseline (1.0 = identical); no hypothesis test is applied to similarity"
+      },
+      {
+        "metric": "latency_ms",
+        "n_pairs": 1,
+        "mean_baseline": 10.0,
+        "mean_candidate": 11.0,
+        "mean_diff": 1.0,
+        "ci_low": null,
+        "ci_high": null,
+        "confidence": null,
+        "ci_method": null,
+        "p_value": null,
+        "test": null,
+        "significant": null,
+        "note": "fewer than 2 pairs: no confidence interval; only 1 pairs (< min_pairs=6): no hypothesis test performed, so no significance claim is made"
+      },
+      {
+        "metric": "total_tokens",
+        "n_pairs": 0,
+        "mean_baseline": null,
+        "mean_candidate": null,
+        "mean_diff": null,
+        "ci_low": null,
+        "ci_high": null,
+        "confidence": null,
+        "ci_method": null,
+        "p_value": null,
+        "test": null,
+        "significant": null,
+        "note": "no cases with data for this metric"
+      },
+      {
+        "metric": "cost_usd",
+        "n_pairs": 0,
+        "mean_baseline": null,
+        "mean_candidate": null,
+        "mean_diff": null,
+        "ci_low": null,
+        "ci_high": null,
+        "confidence": null,
+        "ci_method": null,
+        "p_value": null,
+        "test": null,
+        "significant": null,
+        "note": "no cases with data for this metric"
+      }
+    ]
+  },
+  "results": [
+    {
+      "id": "ok",
+      "name": null,
+      "status": "PASS",
+      "weight": 1.0,
+      "tags": [],
+      "assertions": [
+        {
+          "type": "non_empty",
+          "passed": true,
+          "message": "output is non-empty"
+        }
+      ],
+      "drift": {
+        "similarity": 1.0,
+        "similarity_method": "lexical",
+        "text_changed": false,
+        "json_diff": null,
+        "metrics": [
+          {
+            "name": "latency_ms",
+            "baseline": 10.0,
+            "candidate": 11.0,
+            "change": 1.0,
+            "pct_change": 10.0,
+            "threshold_pct": 50.0,
+            "exceeded": false
+          }
+        ]
+      },
+      "failure_codes": [],
+      "failure_reasons": [],
+      "error": null,
+      "baseline_preview": "hello world",
+      "candidate_preview": "hello world"
+    },
+    {
+      "id": "bad",
+      "name": null,
+      "status": "FAIL",
+      "weight": 1.0,
+      "tags": [],
+      "assertions": [
+        {
+          "type": "non_empty",
+          "passed": false,
+          "message": "output is empty"
+        }
+      ],
+      "drift": {
+        "similarity": 0.0,
+        "similarity_method": "lexical",
+        "text_changed": true,
+        "json_diff": null,
+        "metrics": []
+      },
+      "failure_codes": [
+        "assertion:non_empty",
+        "drift:similarity"
+      ],
+      "failure_reasons": [
+        "non_empty: output is empty",
+        "text similarity 0.000 is below the minimum 0.800"
+      ],
+      "error": null,
+      "baseline_preview": "hello world",
+      "candidate_preview": ""
+    }
+  ]
+}

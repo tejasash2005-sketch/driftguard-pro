@@ -1,0 +1,61 @@
+{
+  "name": "candidate-v2",
+  "responses": {
+    "greeting": {
+      "text": "Hello! How can I help you today?",
+      "latency_ms": 430,
+      "prompt_tokens": 18,
+      "completion_tokens": 9,
+      "cost_usd": 5.4e-05
+    },
+    "refund_policy": {
+      "text": "I am unable to discuss that topic.",
+      "latency_ms": 640,
+      "prompt_tokens": 24,
+      "completion_tokens": 9,
+      "cost_usd": 7e-05
+    },
+    "order_status": {
+      "text": "{\"status\": \"shipped\"}",
+      "latency_ms": 900,
+      "prompt_tokens": 22,
+      "completion_tokens": 12,
+      "cost_usd": 6.8e-05
+    },
+    "capital_france": {
+      "text": "Paris",
+      "latency_ms": 160,
+      "prompt_tokens": 14,
+      "completion_tokens": 1,
+      "cost_usd": 3e-05
+    },
+    "translate": {
+      "text": "Buenos días",
+      "latency_ms": 240,
+      "prompt_tokens": 12,
+      "completion_tokens": 3,
+      "cost_usd": 3e-05
+    },
+    "summary": {
+      "text": "Quarterly revenue grew 12 percent.",
+      "latency_ms": 520,
+      "prompt_tokens": 30,
+      "completion_tokens": 7,
+      "cost_usd": 7.4e-05
+    },
+    "sentiment": {
+      "text": "{\"label\": \"positive\", \"confidence\": 0.91}",
+      "latency_ms": 355,
+      "prompt_tokens": 20,
+      "completion_tokens": 11,
+      "cost_usd": 6.2e-05
+    },
+    "farewell": {
+      "text": "Goodbye, and have a wonderful day!",
+      "latency_ms": 310,
+      "prompt_tokens": 10,
+      "completion_tokens": 8,
+      "cost_usd": 3.6e-05
+    }
+  }
+}

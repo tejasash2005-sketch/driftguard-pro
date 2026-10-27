@@ -1,0 +1,10 @@
+include CHANGELOG.md
+include MIGRATION.md
+include AUDIT.md
+include FINAL_QUALITY_AUDIT.md
+include FINAL_VERIFICATION_REPORT.md
+recursive-include .github *.yml
+recursive-include examples *.json
+recursive-include benchmarks *.py
+recursive-include scripts *.py
+recursive-include tests *.py *.json

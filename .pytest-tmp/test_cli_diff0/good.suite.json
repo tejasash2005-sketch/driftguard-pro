@@ -1,0 +1,1 @@
+{"name": "s", "cases": [{"id": "a", "assertions": [{"type": "non_empty"}], "candidate": {"text": "ok"}}, {"id": "b", "assertions": [{"type": "non_empty"}], "candidate": {"text": "fine"}}]}

@@ -1,0 +1,49 @@
+
+name: DriftGuard CI Gate
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+    inputs:
+      suite:
+        description: "Choose the suite to test"
+        required: true
+        default: demo
+        type: choice
+        options:
+          - demo
+          - regression
+
+jobs:
+  driftguard:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install DriftGuard
+        run: python -m pip install .
+
+      - name: Select test suite
+        shell: bash
+        env:
+          SUITE: ${{ inputs.suite || 'demo' }}
+        run: |
+          if [ "$SUITE" = "demo" ]; then
+            echo "CONFIG=examples/demo.json" >> "$GITHUB_ENV"
+          elif [ "$SUITE" = "regression" ]; then
+            echo "CONFIG=examples/regression.json" >> "$GITHUB_ENV"
+          else
+            echo "Unknown suite: $SUITE"
+            exit 2
+          fi
+
+      - name: Run DriftGuard regression gate
+        run: driftguard run "$CONFIG"

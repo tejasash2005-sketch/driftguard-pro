@@ -1,0 +1,82 @@
+[build-system]
+requires = ["setuptools>=77", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "driftguard-pro"
+version = "1.1.2"
+description = "Deterministic regression and drift detection for LLM applications."
+readme = "README.md"
+requires-python = ">=3.11"
+license = "MIT"
+authors = [{ name = "DriftGuard contributors" }]
+keywords = ["llm", "testing", "regression", "drift", "evaluation"]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Intended Audience :: Developers",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Topic :: Software Development :: Testing",
+  "Typing :: Typed",
+]
+dependencies = [
+  "pydantic>=2.5,<3",
+  "jsonschema>=4.18,<5",
+  "fastapi>=0.110,<1",
+  "uvicorn>=0.27,<1",
+]
+
+[project.optional-dependencies]
+openai = ["openai>=1.0,<3"]
+anthropic = ["anthropic>=0.30,<1"]
+embeddings = ["sentence-transformers>=2.2,<6"]
+dev = [
+  "pytest>=8.4,<10",
+  "pytest-cov>=5,<8",
+  "hypothesis>=6.100,<7",
+  "httpx>=0.27,<1",
+  "ruff>=0.5,<1",
+  "mypy>=1.8,<2",
+  "types-jsonschema>=4.18,<5",
+]
+
+[project.scripts]
+driftguard = "driftguard.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+driftguard = ["py.typed", "dashboard/*", "examples/*.json"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra"
+filterwarnings = [
+  "error::DeprecationWarning:driftguard.*",
+  "ignore:Using .httpx. with .starlette.testclient.",
+]
+
+[tool.coverage.run]
+source = ["driftguard"]
+branch = true
+
+[tool.coverage.report]
+fail_under = 90
+skip_covered = true
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP", "SIM", "C4"]
+
+[tool.mypy]
+python_version = "3.11"
+plugins = ["pydantic.mypy"]
+strict = true
+ignore_missing_imports = true
+files = ["src/driftguard"]

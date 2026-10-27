@@ -1,0 +1,232 @@
+{
+  "name": "demo-support-bot",
+  "description": "All cases pass: small, in-threshold drift only.",
+  "version": "1",
+  "thresholds": {
+    "min_similarity": 0.7,
+    "max_latency_increase_pct": 50,
+    "max_token_increase_pct": 50,
+    "max_cost_increase_pct": 50
+  },
+  "cases": [
+    {
+      "id": "greeting",
+      "prompt": "Greet the user politely.",
+      "assertions": [
+        {
+          "type": "non_empty"
+        }
+      ],
+      "weight": 1.0,
+      "baseline": {
+        "text": "Hello! How can I help you today?",
+        "latency_ms": 410,
+        "prompt_tokens": 18,
+        "completion_tokens": 9,
+        "cost_usd": 5.4e-05
+      },
+      "candidate": {
+        "text": "Hello! How can I help you today?",
+        "latency_ms": 430,
+        "prompt_tokens": 18,
+        "completion_tokens": 9,
+        "cost_usd": 5.4e-05
+      }
+    },
+    {
+      "id": "refund_policy",
+      "prompt": "Summarize the refund policy in one sentence.",
+      "assertions": [
+        {
+          "type": "non_empty"
+        }
+      ],
+      "weight": 2.0,
+      "baseline": {
+        "text": "Refunds are available within 30 days of purchase with a valid receipt.",
+        "latency_ms": 620,
+        "prompt_tokens": 24,
+        "completion_tokens": 17,
+        "cost_usd": 8.2e-05
+      },
+      "candidate": {
+        "text": "Refunds are available within 30 days of purchase if you have a valid receipt.",
+        "latency_ms": 650,
+        "prompt_tokens": 24,
+        "completion_tokens": 18,
+        "cost_usd": 8.4e-05
+      }
+    },
+    {
+      "id": "order_status",
+      "prompt": "Return the order status as JSON.",
+      "assertions": [
+        {
+          "type": "json_keys",
+          "keys": [
+            "status",
+            "eta_days"
+          ]
+        },
+        {
+          "type": "json_schema",
+          "schema": {
+            "type": "object",
+            "required": [
+              "status",
+              "eta_days"
+            ],
+            "properties": {
+              "status": {
+                "type": "string"
+              },
+              "eta_days": {
+                "type": "integer"
+              }
+            }
+          }
+        }
+      ],
+      "weight": 3.0,
+      "baseline": {
+        "text": "{\"status\": \"shipped\", \"eta_days\": 3}",
+        "latency_ms": 380,
+        "prompt_tokens": 22,
+        "completion_tokens": 12,
+        "cost_usd": 6.8e-05
+      },
+      "candidate": {
+        "text": "{\"status\": \"shipped\", \"eta_days\": 3}",
+        "latency_ms": 395,
+        "prompt_tokens": 22,
+        "completion_tokens": 12,
+        "cost_usd": 6.8e-05
+      }
+    },
+    {
+      "id": "capital_france",
+      "prompt": "What is the capital of France? Answer with one word.",
+      "assertions": [
+        {
+          "type": "exact_match",
+          "expected": "Paris"
+        }
+      ],
+      "weight": 1.0,
+      "baseline": {
+        "text": "Paris",
+        "latency_ms": 150,
+        "prompt_tokens": 14,
+        "completion_tokens": 1,
+        "cost_usd": 3e-05
+      },
+      "candidate": {
+        "text": "Paris",
+        "latency_ms": 160,
+        "prompt_tokens": 14,
+        "completion_tokens": 1,
+        "cost_usd": 3e-05
+      }
+    },
+    {
+      "id": "translate",
+      "prompt": "Translate 'good morning' to Spanish.",
+      "assertions": [
+        {
+          "type": "non_empty"
+        }
+      ],
+      "weight": 1.0,
+      "baseline": {
+        "text": "Buenos días",
+        "latency_ms": 220,
+        "prompt_tokens": 12,
+        "completion_tokens": 3,
+        "cost_usd": 3e-05
+      },
+      "candidate": {
+        "text": "Buenos días",
+        "latency_ms": 240,
+        "prompt_tokens": 12,
+        "completion_tokens": 3,
+        "cost_usd": 3e-05
+      }
+    },
+    {
+      "id": "summary",
+      "prompt": "Summarize: the quarterly report shows revenue growth of 12 percent.",
+      "assertions": [
+        {
+          "type": "non_empty"
+        }
+      ],
+      "weight": 1.5,
+      "baseline": {
+        "text": "Quarterly revenue grew by 12 percent.",
+        "latency_ms": 500,
+        "prompt_tokens": 30,
+        "completion_tokens": 8,
+        "cost_usd": 7.6e-05
+      },
+      "candidate": {
+        "text": "Quarterly revenue grew 12 percent.",
+        "latency_ms": 520,
+        "prompt_tokens": 30,
+        "completion_tokens": 7,
+        "cost_usd": 7.4e-05
+      }
+    },
+    {
+      "id": "sentiment",
+      "prompt": "Classify the sentiment as JSON.",
+      "assertions": [
+        {
+          "type": "json_keys",
+          "keys": [
+            "label",
+            "confidence"
+          ]
+        }
+      ],
+      "weight": 2.0,
+      "baseline": {
+        "text": "{\"label\": \"positive\", \"confidence\": 0.93}",
+        "latency_ms": 340,
+        "prompt_tokens": 20,
+        "completion_tokens": 11,
+        "cost_usd": 6.2e-05
+      },
+      "candidate": {
+        "text": "{\"label\": \"positive\", \"confidence\": 0.91}",
+        "latency_ms": 355,
+        "prompt_tokens": 20,
+        "completion_tokens": 11,
+        "cost_usd": 6.2e-05
+      }
+    },
+    {
+      "id": "farewell",
+      "prompt": "Say goodbye.",
+      "assertions": [
+        {
+          "type": "non_empty"
+        }
+      ],
+      "weight": 0.5,
+      "baseline": {
+        "text": "Goodbye, and have a wonderful day!",
+        "latency_ms": 300,
+        "prompt_tokens": 10,
+        "completion_tokens": 8,
+        "cost_usd": 3.6e-05
+      },
+      "candidate": {
+        "text": "Goodbye, and have a wonderful day!",
+        "latency_ms": 310,
+        "prompt_tokens": 10,
+        "completion_tokens": 8,
+        "cost_usd": 3.6e-05
+      }
+    }
+  ]
+}

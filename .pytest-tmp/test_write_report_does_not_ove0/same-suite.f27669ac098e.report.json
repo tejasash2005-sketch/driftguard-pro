@@ -1,0 +1,124 @@
+{
+  "metadata": {
+    "driftguard_version": "1.1.2",
+    "run_id": "f27669ac098e",
+    "generated_at": "2023-11-14T22:13:20Z",
+    "suite_name": "same-suite",
+    "suite_version": "1",
+    "suite_description": "",
+    "suite_sha256": "0b36cfe05ad6987abeb7b4048f2e37e4e68f0017edda3bb17e1cfddd238f27d9",
+    "report_schema_version": 2,
+    "config": {
+      "similarity": "lexical",
+      "seed": 1,
+      "bootstrap_resamples": 2000,
+      "permutation_resamples": 10000,
+      "confidence": 0.95,
+      "alpha": 0.05,
+      "min_pairs": 6
+    },
+    "thresholds": {
+      "min_similarity": 0.8,
+      "max_latency_increase_pct": 50.0,
+      "max_token_increase_pct": 50.0,
+      "max_cost_increase_pct": 50.0,
+      "fail_on_json_structure_change": true,
+      "fail_on_json_value_change": false
+    }
+  },
+  "status": "PASS",
+  "summary": {
+    "total": 1,
+    "passed": 1,
+    "failed": 0,
+    "errors": 0,
+    "inconclusive": 0,
+    "pass_rate": 1.0,
+    "weighted_pass_rate": 1.0,
+    "failure_reasons": {},
+    "drift": [
+      {
+        "metric": "similarity",
+        "n_pairs": 1,
+        "mean_baseline": null,
+        "mean_candidate": 1.0,
+        "mean_diff": null,
+        "ci_low": null,
+        "ci_high": null,
+        "confidence": null,
+        "ci_method": null,
+        "p_value": null,
+        "test": null,
+        "significant": null,
+        "note": "weighted mean text similarity to baseline (1.0 = identical); no hypothesis test is applied to similarity"
+      },
+      {
+        "metric": "latency_ms",
+        "n_pairs": 0,
+        "mean_baseline": null,
+        "mean_candidate": null,
+        "mean_diff": null,
+        "ci_low": null,
+        "ci_high": null,
+        "confidence": null,
+        "ci_method": null,
+        "p_value": null,
+        "test": null,
+        "significant": null,
+        "note": "no cases with data for this metric"
+      },
+      {
+        "metric": "total_tokens",
+        "n_pairs": 0,
+        "mean_baseline": null,
+        "mean_candidate": null,
+        "mean_diff": null,
+        "ci_low": null,
+        "ci_high": null,
+        "confidence": null,
+        "ci_method": null,
+        "p_value": null,
+        "test": null,
+        "significant": null,
+        "note": "no cases with data for this metric"
+      },
+      {
+        "metric": "cost_usd",
+        "n_pairs": 0,
+        "mean_baseline": null,
+        "mean_candidate": null,
+        "mean_diff": null,
+        "ci_low": null,
+        "ci_high": null,
+        "confidence": null,
+        "ci_method": null,
+        "p_value": null,
+        "test": null,
+        "significant": null,
+        "note": "no cases with data for this metric"
+      }
+    ]
+  },
+  "results": [
+    {
+      "id": "a",
+      "name": null,
+      "status": "PASS",
+      "weight": 1.0,
+      "tags": [],
+      "assertions": [],
+      "drift": {
+        "similarity": 1.0,
+        "similarity_method": "lexical",
+        "text_changed": false,
+        "json_diff": null,
+        "metrics": []
+      },
+      "failure_codes": [],
+      "failure_reasons": [],
+      "error": null,
+      "baseline_preview": "hello world",
+      "candidate_preview": "hello world"
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="simulated-regression" tests="8" failures="3" errors="0" skipped="0" time="0" timestamp="2023-11-14T22:13:20Z">
+  <properties>
+    <property name="run_id" value="b22721c0b212" />
+    <property name="driftguard_version" value="1.1.2" />
+    <property name="suite_sha256" value="be6226a337f600735ca84199e583748f811c8bd39a6ea6ea6d934981f6196204" />
+    <property name="seed" value="0" />
+  </properties>
+  <testcase classname="simulated-regression" name="greeting" time="0" />
+  <testcase classname="simulated-regression" name="refund_policy" time="0">
+    <failure message="latency increased 117.1% (limit 50.0%)" type="drift:latency">latency increased 117.1% (limit 50.0%)</failure>
+  </testcase>
+  <testcase classname="simulated-regression" name="order_status" time="0" />
+  <testcase classname="simulated-regression" name="invoice_summary" time="0" />
+  <testcase classname="simulated-regression" name="troubleshoot" time="0" />
+  <testcase classname="simulated-regression" name="translation" time="0" />
+  <testcase classname="simulated-regression" name="summary" time="0">
+    <failure message="non_empty: output is empty; text similarity 0.000 is below the minimum 0.750" type="assertion:non_empty">non_empty: output is empty; text similarity 0.000 is below the minimum 0.750</failure>
+  </testcase>
+  <testcase classname="simulated-regression" name="classification" time="0">
+    <failure message="json_keys: missing keys: category; text similarity 0.530 is below the minimum 0.750; JSON structure changed: removed category" type="assertion:json_keys">json_keys: missing keys: category; text similarity 0.530 is below the minimum 0.750; JSON structure changed: removed category</failure>
+  </testcase>
+</testsuite>
