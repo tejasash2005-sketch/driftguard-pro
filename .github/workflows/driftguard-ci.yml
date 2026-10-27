@@ -3,53 +3,75 @@ name: DriftGuard CI
 
 on:
   push:
-    branches: [main]
+    branches:
+      - main
   pull_request:
-    branches: [main]
+    branches:
+      - main
   workflow_dispatch:
     inputs:
       suite:
-        description: Suite to run
+        description: "Choose the suite to run"
         required: true
+        default: demo
         type: choice
         options:
           - demo
           - regression
 
+permissions:
+  contents: read
+
 jobs:
   test:
+    name: Tests and DriftGuard suite
     runs-on: ubuntu-latest
+
     env:
-      TMPDIR: ${{ runner.temp }}
-      TMP: ${{ runner.temp }}
-      TEMP: ${{ runner.temp }}
+      TMPDIR: /tmp
+      TMP: /tmp
+      TEMP: /tmp
 
     steps:
-      - name: Checkout
+      - name: Checkout repository
         uses: actions/checkout@v4
 
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.12"
+          cache: pip
 
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install -e ".[dev]"
+          python -m pip install -e ".[dev]"
 
-      - name: Run tests
-        run: python -m pytest -q --basetemp="$TMPDIR/pytest"
+      - name: Run unit tests
+        run: |
+          python -m pytest -q --basetemp=/tmp/driftguard-pytest
 
-      - name: Select suite
+      - name: Select DriftGuard suite
         id: suite
         shell: bash
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          SELECTED_SUITE: ${{ inputs.suite || 'demo' }}
         run: |
-          if [[ "${{ github.event_name }}" == "workflow_dispatch" ]]; then
-            echo "file=examples/${{ inputs.suite }}.json" >> "$GITHUB_OUTPUT"
+          if [[ "$EVENT_NAME" == "workflow_dispatch" ]]; then
+            case "$SELECTED_SUITE" in
+              demo|regression)
+                echo "config=examples/${SELECTED_SUITE}.json" >> "$GITHUB_OUTPUT"
+                ;;
+              *)
+                echo "Invalid suite: $SELECTED_SUITE"
+                exit 2
+                ;;
+            esac
           else
-            echo "file=examples/demo.json" >> "$GITHUB_OUTPUT"
+            echo "config=examples/demo.json" >> "$GITHUB_OUTPUT"
           fi
 
       - name: Run DriftGuard suite
-        run: driftguard run "${{ steps.suite.outputs.file }}"
+        run: |
+          driftguard run "${{ steps.suite.outputs.config }}"
