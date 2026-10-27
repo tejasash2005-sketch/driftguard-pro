@@ -22,3 +22,4 @@ reports/
 .idea/
 .vscode/
 .DS_Store
+.venv-release-test/
