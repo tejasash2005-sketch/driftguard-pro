@@ -46,8 +46,13 @@ jobs:
       - name: Select test suite
         shell: bash
         env:
+          EVENT_NAME: ${{ github.event_name }}
           SUITE: ${{ inputs.suite || 'demo' }}
         run: |
+          if [ "$EVENT_NAME" != "workflow_dispatch" ]; then
+            SUITE="demo"
+          fi
+
           if [ "$SUITE" = "demo" ]; then
             echo "CONFIG=examples/demo.json" >> "$GITHUB_ENV"
           elif [ "$SUITE" = "regression" ]; then
